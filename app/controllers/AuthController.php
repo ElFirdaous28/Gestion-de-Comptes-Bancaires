@@ -7,83 +7,39 @@ class AuthController extends BaseController
     public function __construct()
     {
 
-        // $this->UserModel = new User();
+        $this->UserModel = new User();
     }
 
-    public function showRegister()
+    public function showLogin()
     {
 
-        $this->render('auth/register');
+        $this->render('auth/login');
     }
-    public function adminDashboard()
+
+    //handl login function
+    public function handleLogin()
     {
 
-        $this->render('auth/register');
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            if (isset($_POST['login'])) {
+                $email = $_POST['email'];
+                $password = $_POST['password'];
+                $userData = [$email, $password];
+                $user = $this->UserModel->login($userData);
+
+                $role = $user['role'];
+                $_SESSION['user_loged_in_id'] = $user["user_id"];
+                $_SESSION['user_loged_in_role'] = $role;
+                $_SESSION['user_loged_in_nome'] = $user['full_name'];
+
+                if ($user && $role == "admin") {
+                    header('Location: /admin/dashboard');
+                } else if ($user && $role == "client") {
+                    header('Location: /client/dashboard');
+                }
+            }
+        }
     }
-    // public function showleLogin()
-    // {
-
-    //     $this->render('auth/login');
-    // }
-
-    // public function handleRegister()
-    // {
-
-
-    //     if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    //         if (isset($_POST['signup'])) {
-    //             $full_name = $_POST['full_name'];
-    //             $email = $_POST['email'];
-    //             $role = $_POST['role'];
-    //             $password = $_POST['password'];
-    //             $hashed_password = password_hash($password, PASSWORD_DEFAULT);
-
-    //             $user = [$full_name, $hashed_password, $email, $role];
-
-
-
-    //             $lastInsertId = $this->UserModel->register($user);
-
-    //             $_SESSION['user_loged_in_id'] = $lastInsertId;
-    //             $_SESSION['user_loged_in_role'] = $role;
-
-    //             if ($lastInsertId && $role == 1) {
-    //                 header('Location: admin/dashboard');
-    //             } else if ($lastInsertId && $role == 2) {
-    //                 header('Location: client/dashboard');
-    //             } else if ($lastInsertId && $role == 3) {
-    //                 header('Location: freelancer/dashboard');
-    //             }
-    //             exit;
-    //         }
-    //     }
-    // }
-    // public function handleLogin()
-    // {
-
-
-    //     if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    //         if (isset($_POST['login'])) {
-    //             $email = $_POST['email'];
-    //             $password = $_POST['password'];
-    //             $userData = [$email, $password];
-    //             $user = $this->UserModel->login($userData);
-    //             // var_dump($user);die();
-    //             $role = $user['role'];
-    //             $_SESSION['user_loged_in_id'] = $user["id_utilisateur"];
-    //             $_SESSION['user_loged_in_role'] = $role;
-    //             $_SESSION['user_loged_in_nome'] = $user['nom_utilisateur'];
-
-    //             if ($user && $role == 1) {
-    //                 header('Location: /admin/dashboard');
-    //             } else if ($user && $role == 2) {
-    //                 header('Location: /client/dashboard');
-    //             } else if ($user && $role == 3) {
-    //                 header('Location: /freelancer/dashboard');
-    //             }
-    //         }
-    //     }
-    // }
 
     // public function logout()
     // {
