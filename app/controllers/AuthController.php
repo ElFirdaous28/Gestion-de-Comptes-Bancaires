@@ -43,7 +43,6 @@ class AuthController extends BaseController
 
     public function logout()
     {
-
         if (isset($_SESSION['user_loged_in_id']) && isset($_SESSION['user_loged_in_role'])) {
             unset($_SESSION['user_loged_in_id']);
             unset($_SESSION['user_loged_in_role']);

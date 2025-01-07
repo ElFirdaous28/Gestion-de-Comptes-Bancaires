@@ -32,6 +32,8 @@ Route::get('/admin/dashboard', [AdminController::class, 'adminDashboard']);
 Route::get('/admin/clients', [AdminController::class, 'clientsPage']);
 Route::get('/admin/comptes', [AdminController::class, 'comptesPage']);
 Route::get('/admin/transactions', [AdminController::class, 'transactionsPage']);
+Route::post('/admin/addUser', [AdminController::class, 'addUser']);
+
 
 // client routers
 Route::get('/client/dashboard', [ClientController::class, 'clientDashboard']);

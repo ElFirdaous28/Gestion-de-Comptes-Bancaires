@@ -213,192 +213,59 @@
 
                             <!-- Modal Body -->
                             <div class="p-6">
-                                <form id="addClientForm" class="space-y-6">
+                                <form id="addClientForm" class="space-y-6" action="/admin/addUser" method="POST">
                                     <!-- Informations personnelles -->
                                     <div>
-                                        <h4 class="text-base font-medium text-gray-900 mb-4">
-                                            Informations personnelles
-                                        </h4>
-                                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                            <div>
-                                                <label
-                                                    class="block text-sm font-medium text-gray-700 mb-1">Civilité
-                                                    *</label>
-                                                <select
-                                                    required
-                                                    class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
-                                                    <option value>Sélectionner</option>
-                                                    <option value="mr">M.</option>
-                                                    <option value="mme">Mme</option>
-                                                </select>
-                                            </div>
 
-                                            <div>
-                                                <label
-                                                    class="block text-sm font-medium text-gray-700 mb-1">Numéro
-                                                    client</label>
-                                                <input
-                                                    type="text"
-                                                    readonly
-                                                    value="CLT-2024-0001"
-                                                    class="w-full px-3 py-2 border border-gray-300 rounded-md bg-gray-50" />
-                                            </div>
+                                        <div class="md:col-span-2">
+                                            <label
+                                                class="block text-sm font-medium text-gray-700 mb-1">Nom et prénom
+                                                *</label>
+                                            <input
+                                                type="text" name="fullname"
+                                                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                                        </div>
 
-                                            <div>
-                                                <label
-                                                    class="block text-sm font-medium text-gray-700 mb-1">Nom
-                                                    *</label>
-                                                <input
-                                                    type="text"
-                                                    required
-                                                    class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" />
-                                            </div>
+                                        <div class="md:col-span-2">
+                                            <label
+                                                class="block text-sm font-medium text-gray-700 mb-1">Email
+                                                *</label>
+                                            <input
+                                                type="email" name="email"
+                                                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                                        </div>
 
-                                            <div>
-                                                <label
-                                                    class="block text-sm font-medium text-gray-700 mb-1">Prénom
-                                                    *</label>
-                                                <input
-                                                    type="text"
-                                                    required
-                                                    class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" />
-                                            </div>
-
-                                            <div>
-                                                <label
-                                                    class="block text-sm font-medium text-gray-700 mb-1">Date
-                                                    de naissance *</label>
-                                                <input
-                                                    type="date"
-                                                    required
-                                                    class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" />
-                                            </div>
-
-                                            <div>
-                                                <label
-                                                    class="block text-sm font-medium text-gray-700 mb-1">Nationalité
-                                                    *</label>
-                                                <select
-                                                    required
-                                                    class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
-                                                    <option value>Sélectionner</option>
-                                                    <option value="fr">Française</option>
-                                                    <option value="other">Autre</option>
-                                                </select>
-                                            </div>
+                                        <div class="md:col-span-2">
+                                            <label
+                                                class="block text-sm font-medium text-gray-700 mb-1">Role
+                                                *</label>
+                                            <select required name="role" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                                <option value="">Sélectionner</option>
+                                                <option value="admin">Admin</option>
+                                                <option value="client">Client</option>
+                                            </select>
                                         </div>
                                     </div>
 
-                                    <!-- Coordonnées -->
-                                    <div>
-                                        <h4 class="text-base font-medium text-gray-900 mb-4">
-                                            Coordonnées
-                                        </h4>
-                                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                            <div>
-                                                <label
-                                                    class="block text-sm font-medium text-gray-700 mb-1">Email
-                                                    *</label>
-                                                <input
-                                                    type="email"
-                                                    required
-                                                    class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" />
-                                            </div>
-
-                                            <div>
-                                                <label
-                                                    class="block text-sm font-medium text-gray-700 mb-1">Téléphone
-                                                    *</label>
-                                                <input
-                                                    type="tel"
-                                                    required
-                                                    pattern="[0-9]{10}"
-                                                    class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" />
-                                            </div>
-
-                                            <div class="md:col-span-2">
-                                                <label
-                                                    class="block text-sm font-medium text-gray-700 mb-1">Adresse
-                                                    *</label>
-                                                <input
-                                                    type="text"
-                                                    required
-                                                    class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" />
-                                            </div>
-
-                                            <div>
-                                                <label
-                                                    class="block text-sm font-medium text-gray-700 mb-1">Code
-                                                    postal *</label>
-                                                <input
-                                                    type="text"
-                                                    required
-                                                    pattern="[0-9]{5}"
-                                                    class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" />
-                                            </div>
-
-                                            <div>
-                                                <label
-                                                    class="block text-sm font-medium text-gray-700 mb-1">Ville
-                                                    *</label>
-                                                <input
-                                                    type="text"
-                                                    required
-                                                    class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" />
-                                            </div>
-                                        </div>
+                                    <div
+                                        class="flex justify-end space-x-3 p-6 border-t bg-gray-50">
+                                        <button
+                                            onclick="toggleAddClientModal()"
+                                            class="px-4 py-2 border border-gray-300 rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-gray-500">
+                                            Annuler
+                                        </button>
+                                        <button
+                                            onclick="submitAddClientForm()" name="addUser"
+                                            class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                            Créer le compte
+                                        </button>
                                     </div>
 
-                                    <!-- Type de compte -->
-                                    <div>
-                                        <h4 class="text-base font-medium text-gray-900 mb-4">
-                                            Configuration du compte
-                                        </h4>
-                                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                            <div>
-                                                <label
-                                                    class="block text-sm font-medium text-gray-700 mb-1">Type
-                                                    de compte *</label>
-                                                <select
-                                                    required
-                                                    class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
-                                                    <option value>Sélectionner</option>
-                                                    <option value="courant">Compte Courant</option>
-                                                    <option value="epargne">Compte Épargne</option>
-                                                    <option value="both">Les deux</option>
-                                                </select>
-                                            </div>
-
-                                            <div>
-                                                <label
-                                                    class="block text-sm font-medium text-gray-700 mb-1">Conseiller
-                                                    assigné</label>
-                                                <select
-                                                    class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
-                                                    <option value>Sélectionner</option>
-                                                    <option value="1">Marc Dubois</option>
-                                                    <option value="2">Sophie Martin</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
                                 </form>
                             </div>
 
                             <!-- Modal Footer -->
-                            <div
-                                class="flex justify-end space-x-3 p-6 border-t bg-gray-50">
-                                <button
-                                    onclick="toggleAddClientModal()"
-                                    class="px-4 py-2 border border-gray-300 rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-gray-500">
-                                    Annuler
-                                </button>
-                                <button
-                                    onclick="submitAddClientForm()"
-                                    class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
-                                    Créer le compte
-                                </button>
-                            </div>
+
                         </div>
                     </div>
                 </div>
