@@ -1,14 +1,17 @@
 <?php
 require_once(__DIR__ . '/../models/User.php');
 require_once(__DIR__ . '/../models/Account.php');
+require_once(__DIR__ . '/../models/Depot.php');
 class ClientController extends BaseController
 {
 
     private $AccountModel;
+    private $DepotModel;
     public function __construct()
     {
 
         $this->AccountModel = new Account();
+        $this->DepotModel = new Depot();
     }
     // client dashboard
     public function clientDashboard()
@@ -22,6 +25,18 @@ class ClientController extends BaseController
     {
         $accounts = $this->AccountModel->clientAccounts($_SESSION['user_loged_in_id']);
         $this->render('client/comptes',["accounts"=>$accounts]);
+    }
+
+    // methode pour cree un depot 
+    public function creeDepot(){
+        if($_SERVER["REQUEST_METHOD"]==="POST" && isset($_POST["creeDepot"])){
+            $account_id = $_POST["account_id"];
+            $amount= $_POST["amount"];
+            $transactionInfo=["account_id"=>$account_id,"amount"=>$amount];
+            $this->DepotModel->addTransaction($transactionInfo);
+            $this->AccountModel->addAmount($account_id,$amount);
+            header("Location: /client/comptes");
+        }
     }
 
     // virment page

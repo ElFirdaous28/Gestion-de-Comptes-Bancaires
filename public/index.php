@@ -41,6 +41,8 @@ Route::get('/client/benificier', [ClientController::class, 'benificier']);
 Route::get('/client/historique', [ClientController::class, 'historique']);
 Route::get('/client/profil', [ClientController::class, 'profil']);
 
+Route::post('/client/creeDepot', [ClientController::class, 'creeDepot']);
+
 
 // Route::post('/register', [AuthController::class, 'handleRegister']);
 // Route::get('/login', [AuthController::class, 'showleLogin']);
