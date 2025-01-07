@@ -40,10 +40,6 @@
                                class="w-full py-3 text-white bg-indigo-500 rounded-md font-semibold hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-opacity-50">
                     </div>
                 </form>
-                <div class="flex items-center justify-center mt-2">
-                    <p>You don't have an account?</p>
-                    <a href="/register" class="text-indigo-500 ml-2">SignUp</a>
-                </div>
             </div>
         </div>
     </div>
