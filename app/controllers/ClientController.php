@@ -1,19 +1,20 @@
 <?php
 require_once(__DIR__ . '/../models/User.php');
+require_once(__DIR__ . '/../models/Account.php');
 class ClientController extends BaseController
 {
 
-    private $UserModel;
+    private $AccountModel;
     public function __construct()
     {
 
-        // $this->UserModel = new User();
+        $this->AccountModel = new Account();
     }
     // client dashboard
     public function clientDashboard()
     {
-
-        $this->render('client/dashboard');
+        $accounts = $this->AccountModel->clientAccounts($_SESSION['user_loged_in_id']);
+        $this->render('client/dashboard',["accounts"=>$accounts]);
     }
 
     // mes comptes page
