@@ -6,7 +6,13 @@ class User extends DataBase{
         parent::__construct();
     }
 
-    public function addUser(){
+    public function addUser($fullname, $email,$hashed_password,$role){
+        try{
+            $stmt = $this->conn->prepare("INSERT INTO users (full_name, email, password,role) VALUES(?,?,?,?)");
+            $stmt->execute([$fullname, $email,$hashed_password,$role]);
+        }catch (PDOException $e) {
+            echo "Error in add user: " . $e->getMessage();
+        }
 
     }
 
