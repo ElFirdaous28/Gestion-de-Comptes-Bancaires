@@ -20,8 +20,8 @@ class ClientController extends BaseController
     // mes comptes page
     public function mesComptes()
     {
-
-        $this->render('client/comptes');
+        $accounts = $this->AccountModel->clientAccounts($_SESSION['user_loged_in_id']);
+        $this->render('client/comptes',["accounts"=>$accounts]);
     }
 
     // virment page

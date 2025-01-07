@@ -14,19 +14,6 @@
                 <p class="text-sm text-gray-500 mt-1">N° <?= htmlspecialchars($account["account_id"])?></p>
             </div>
         <?php endforeach?>
-
-        <!-- <div class="bg-white p-6 rounded-lg shadow">
-            <h3 class="text-lg font-semibold text-gray-700">Compte Courant</h3>
-            <p class="text-3xl font-bold text-gray-900 mt-2">€2,450.50</p>
-            <p class="text-sm text-gray-500 mt-1">N° FR76 1234 5678 9012</p>
-        </div>
-
-        <div class="bg-white p-6 rounded-lg shadow">
-            <h3 class="text-lg font-semibold text-gray-700">Compte Épargne</h3>
-            <p class="text-3xl font-bold text-gray-900 mt-2">€15,750.20</p>
-            <p class="text-sm text-gray-500 mt-1">N° FR76 9876 5432 1098</p>
-        </div> -->
-        
     </div>
 
     <!-- Quick Actions -->

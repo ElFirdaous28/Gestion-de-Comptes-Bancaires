@@ -16,11 +16,11 @@
                     <!-- Sélection du compte -->
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-1">Compte à alimenter *</label>
-                        <select required
+                        <select require
                             class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
-                            <option value="">Sélectionnez un compte</option>
-                            <option value="courant">Compte Courant - FR76 1234 5678 9012 (2,450.50 €)</option>
-                            <option value="epargne">Compte Épargne - FR76 9876 5432 1098 (15,750.20 €)</option>
+                            <?php foreach($accounts as $account):?>
+                                <option value="<?= htmlspecialchars($account["account_id"]) ?>">Compte <?= htmlspecialchars($account["account_type"]) ?> (<?= htmlspecialchars($account["balance"]) ?>)</option>
+                            <?php endforeach?>
                         </select>
                     </div>
 
