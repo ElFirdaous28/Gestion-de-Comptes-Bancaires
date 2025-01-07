@@ -1,4 +1,4 @@
-<div class="w-64 bg-white shadow-lg hidden md:block" id="sidebar">
+<div class="sticky h-screen w-64 bg-white shadow-lg hidden md:block" id="sidebar">
     <div class="p-6">
         <h1 class="text-2xl font-bold text-blue-600">Ma Banque</h1>
     </div>
@@ -29,6 +29,49 @@
             <span>Profil</span>
         </a>
     </nav>
+    <!-- Profil Admin avec Déconnexion -->
+    <div class="p-6 absolute bottom-0">
+        <div class="relative">
+            <button
+                onclick="toggleProfileMenu()"
+                class="flex items-center w-full text-gray-600 hover:bg-blue-600 hover:text-white rounded-lg p-2">
+                <img src="/api/placeholder/32/32" alt="Admin"
+                    class="w-8 h-8 rounded-full">
+                <div class="ml-3 flex-grow">
+                    <p class="text-sm font-medium">Admin</p>
+                    <p
+                        class="text-xs">admin@banque.fr</p>
+                </div>
+                <i data-lucide="chevron-up"
+                    class="w-5 h-5 transform transition-transform duration-200"
+                    id="profileChevron"></i>
+            </button>
+
+            <!-- Menu Profil -->
+            <div id="profileMenu"
+                class="absolute bottom-full left-0 w-full mb-2 bg-gray-50 rounded-lg shadow-lg hidden">
+                <a href="#"
+                    class="block px-4 py-2 text-sm text-gray-600 hover:bg-blue-600 rounded-t-lg">
+                    <i data-lucide="user"
+                        class="w-4 h-4 inline-block mr-2"></i>
+                    Mon profil
+                </a>
+                <a href="#"
+                    class="block px-4 py-2 text-sm text-gray-600 hover:bg-blue-600">
+                    <i data-lucide="settings"
+                        class="w-4 h-4 inline-block mr-2"></i>
+                    Paramètres
+                </a>
+                <a
+                    href="/logout"
+                    class="block px-4 py-2 text-sm text-red-500 hover:bg-blue-600 rounded-b-lg">
+                    <i data-lucide="log-out"
+                        class="w-4 h-4 inline-block mr-2"></i>
+                    Déconnexion
+                </a>
+            </div>
+        </div>
+    </div>
 </div>
 
 <!-- Toggle Button for Mobile -->
