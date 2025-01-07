@@ -32,11 +32,11 @@
 </div>
 
 <!-- Toggle Button for Mobile -->
-<button class="md:hidden p-4 text-gray-600 hover:text-blue-600" id="toggleSidebar">
+<button class="fixed top-0 left-0 md:hidden p-4 text-gray-600 hover:text-blue-600 " id="toggleSidebar">
     <i data-lucide="menu" class="w-6 h-6"></i>
 </button>
 
-<!-- Add this button for desktop view -->
+<!-- Add this button for desktop view
 <button class="hidden md:block p-4 text-gray-600 hover:text-blue-600" id="toggleSidebarDesktop">
     <i data-lucide="menu" class="w-6 h-6"></i>
-</button>
+</button> -->
