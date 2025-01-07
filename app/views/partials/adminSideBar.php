@@ -84,7 +84,7 @@ class="fixed inset-y-0 left-0 transform -translate-x-full lg:translate-x-0 lg:re
                     Paramètres
                 </a>
                 <a
-                    href="javascript:logout()"
+                    href="/logout"
                     class="block px-4 py-2 text-sm text-red-400 hover:bg-gray-700 rounded-b-lg">
                     <i data-lucide="log-out"
                         class="w-4 h-4 inline-block mr-2"></i>
