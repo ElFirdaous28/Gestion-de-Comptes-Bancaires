@@ -23,6 +23,8 @@ Route::setRouter($router);
 Route::get('/register', [AuthController::class, 'showRegister']);
 Route::get('/login', [AuthController::class, 'showLogin']);
 Route::post('/login', [AuthController::class, 'handleLogin']);
+Route::get('/logout', [AuthController::class, 'logout']);
+
 
 // admin routes 
 Route::get('/register', [AuthController::class, 'showRegister']);

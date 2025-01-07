@@ -41,20 +41,16 @@ class AuthController extends BaseController
         }
     }
 
-    // public function logout()
-    // {
+    public function logout()
+    {
 
+        if (isset($_SESSION['user_loged_in_id']) && isset($_SESSION['user_loged_in_role'])) {
+            unset($_SESSION['user_loged_in_id']);
+            unset($_SESSION['user_loged_in_role']);
+            session_destroy();
 
-    //     // if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["logout"])) {
-    //     //  var_dump($_SESSION);die();
-    //     if (isset($_SESSION['user_loged_in_id']) && isset($_SESSION['user_loged_in_role'])) {
-    //         unset($_SESSION['user_loged_in_id']);
-    //         unset($_SESSION['user_loged_in_role']);
-    //         session_destroy();
-
-    //         header("Location: /login");
-    //         exit;
-    //     }
-    //     //   }
-    // }
+            header("Location: /login");
+            exit;
+        }
+    }
 }
