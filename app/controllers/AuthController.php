@@ -33,9 +33,9 @@ class AuthController extends BaseController
                 $_SESSION['user_loged_in_nome'] = $user['full_name'];
 
                 if ($user && $role == "admin") {
-                    header('Location: /admin/dashboard');
+                    $this->render('admin/dashboard');
                 } else if ($user && $role == "client") {
-                    header('Location: /client/dashboard');
+                    $this->render('client/dashboard');
                 }
             }
         }
@@ -48,7 +48,8 @@ class AuthController extends BaseController
             unset($_SESSION['user_loged_in_role']);
             session_destroy();
 
-            header("Location: /login");
+            // header("Location: /login");
+            $this->render('auth/login');
             exit;
         }
     }

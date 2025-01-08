@@ -16,7 +16,7 @@ class AdminController extends BaseController
         $this->render('admin/dashboard');
     }
 
-    function generatePassword($length) {
+    public function generatePassword($length) {
 
         $chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
         return substr(str_shuffle($chars),0,$length);
@@ -31,15 +31,25 @@ class AdminController extends BaseController
             $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
             $user = $this->UserModel->addUser($fullname, $email, $hashed_password,$role);
-            header('Location: /admin/clients');
+            $this->render('admin/clients');
         }
     }
 
     // clients page
     public function clientsPage()
     {
+        $users = $this->UserModel->showUsers();
+        // echo '<pre>';
+        // var_dump($users); die();
+        // echo '</pre>';
+        $this->render('admin/clients',["users"=>$users]);
+    }
 
-        $this->render('admin/clients');
+    public function updateUser(){
+        if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['edit_btn'])){
+            $fullname = $_POST['fullname'];
+            $email = $_POST['email'];
+        }
     }
 
     // comptes page

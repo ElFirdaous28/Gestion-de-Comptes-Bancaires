@@ -86,13 +86,13 @@
                             <th class="p-3">Client</th>
                             <th class="p-3">Contact</th>
                             <th class="p-3">Comptes</th>
-                            <th class="p-3">Statut</th>
-                            <th class="p-3">Dernière activité</th>
+                            <!-- <th class="p-3">Statut</th> -->
                             <th class="p-3">Actions</th>
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-gray-200">
                         <!-- Client 1 -->
+                         <?php foreach($users as $user): ?>
                         <tr class="hover:bg-gray-50">
                             <td class="p-3">
                                 <div class="flex items-center">
@@ -101,37 +101,31 @@
                                         alt="Thomas Robert"
                                         class="w-10 h-10 rounded-full" />
                                     <div class="ml-4">
-                                        <div class="text-sm font-medium text-gray-900">
-                                            Thomas Robert
+                                        <div class="full_name text-sm font-medium text-gray-900">
+                                            <?= htmlspecialchars($user["full_name"]);?>
                                         </div>
                                         <div class="text-sm text-gray-500">ID: #45789</div>
                                     </div>
                                 </div>
                             </td>
                             <td class="p-3">
-                                <div class="text-sm text-gray-900">thomas@email.com</div>
-                                <div class="text-sm text-gray-500">06 12 34 56 78</div>
+                                <div class="email text-sm text-gray-900"><?= htmlspecialchars($user['email'])?></div>
                             </td>
                             <td class="p-3">
-                                <div class="text-sm text-gray-900">2 comptes</div>
-                                <div class="text-sm text-gray-500">Courant, Épargne</div>
+                                <div class="text-sm text-gray-900"><?=$user['accounts_number']?>comptes</div>
                             </td>
-                            <td class="p-3">
+                            <!-- <td class="p-3">
                                 <span
                                     class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
                                     Actif
                                 </span>
-                            </td>
-                            <td class="p-3">
-                                <div class="text-sm text-gray-900">Il y a 2 heures</div>
-                                <div class="text-sm text-gray-500">Virement sortant</div>
-                            </td>
+                            </td> -->
                             <td class="p-3">
                                 <div class="flex space-x-2">
                                     <button class="text-blue-600 hover:text-blue-900">
                                         <i data-lucide="eye" class="w-5 h-5"></i>
                                     </button>
-                                    <button class="text-gray-600 hover:text-gray-900">
+                                    <button onclick="toggleAddClientModal(event)" id="edit_btn" class="edit_user text-gray-600 hover:text-gray-900">
                                         <i data-lucide="edit" class="w-5 h-5"></i>
                                     </button>
                                     <button class="text-red-600 hover:text-red-900">
@@ -140,55 +134,8 @@
                                 </div>
                             </td>
                         </tr>
-
-                        <!-- Client 2 -->
-                        <tr class="hover:bg-gray-50">
-                            <td class="p-3">
-                                <div class="flex items-center">
-                                    <img
-                                        src="/api/placeholder/40/40"
-                                        alt="Marie Dubois"
-                                        class="w-10 h-10 rounded-full" />
-                                    <div class="ml-4">
-                                        <div class="text-sm font-medium text-gray-900">
-                                            Marie Dubois
-                                        </div>
-                                        <div class="text-sm text-gray-500">ID: #45790</div>
-                                    </div>
-                                </div>
-                            </td>
-                            <td class="p-3">
-                                <div class="text-sm text-gray-900">marie@email.com</div>
-                                <div class="text-sm text-gray-500">06 98 76 54 32</div>
-                            </td>
-                            <td class="p-3">
-                                <div class="text-sm text-gray-900">1 compte</div>
-                                <div class="text-sm text-gray-500">Courant</div>
-                            </td>
-                            <td class="p-3">
-                                <span
-                                    class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">
-                                    En attente
-                                </span>
-                            </td>
-                            <td class="p-3">
-                                <div class="text-sm text-gray-900">Hier</div>
-                                <div class="text-sm text-gray-500">Création compte</div>
-                            </td>
-                            <td class="p-3">
-                                <div class="flex space-x-2">
-                                    <button class="text-blue-600 hover:text-blue-900">
-                                        <i data-lucide="eye" class="w-5 h-5"></i>
-                                    </button>
-                                    <button class="text-gray-600 hover:text-gray-900">
-                                        <i data-lucide="edit" class="w-5 h-5"></i>
-                                    </button>
-                                    <button class="text-green-600 hover:text-green-900">
-                                        <i data-lucide="check-circle" class="w-5 h-5"></i>
-                                    </button>
-                                </div>
-                            </td>
-                        </tr>
+                       
+                        <?php endforeach?>
                     </tbody>
                 </table>
 
@@ -205,7 +152,7 @@
                                     Ajouter un nouveau client
                                 </h3>
                                 <button
-                                    onclick="toggleAddClientModal()"
+                                    onclick="toggleAddClientModal(event)"
                                     class="text-gray-400 hover:text-gray-500">
                                     <i data-lucide="x" class="w-6 h-6"></i>
                                 </button>
@@ -222,7 +169,7 @@
                                                 class="block text-sm font-medium text-gray-700 mb-1">Nom et prénom
                                                 *</label>
                                             <input
-                                                type="text" name="fullname"
+                                                type="text" name="fullname" id="full_name"
                                                 class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" />
                                         </div>
 
@@ -231,7 +178,7 @@
                                                 class="block text-sm font-medium text-gray-700 mb-1">Email
                                                 *</label>
                                             <input
-                                                type="email" name="email"
+                                                type="email" name="email" id="email"
                                                 class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" />
                                         </div>
 
@@ -239,7 +186,7 @@
                                             <label
                                                 class="block text-sm font-medium text-gray-700 mb-1">Role
                                                 *</label>
-                                            <select required name="role" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                            <select required id="role" name="role" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
                                                 <option value="">Sélectionner</option>
                                                 <option value="admin">Admin</option>
                                                 <option value="client">Client</option>
@@ -250,7 +197,7 @@
                                     <div
                                         class="flex justify-end space-x-3 p-6 border-t bg-gray-50">
                                         <button
-                                            onclick="toggleAddClientModal()"
+                                            onclick="toggleAddClientModal(event)"
                                             class="px-4 py-2 border border-gray-300 rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-gray-500">
                                             Annuler
                                         </button>
@@ -263,9 +210,6 @@
 
                                 </form>
                             </div>
-
-                            <!-- Modal Footer -->
-
                         </div>
                     </div>
                 </div>
@@ -303,4 +247,6 @@
     </div>
 </div>
 <script src="/assets/js/clientPopUp.js"></script>
-<?php require_once(__DIR__ . '../../partials/buttom.php'); ?>
+<?php 
+require_once(__DIR__ . '../../partials/buttom.php'); 
+?>
