@@ -28,13 +28,24 @@ class ClientController extends BaseController
     }
 
     // methode pour cree un depot 
-    public function creeDepot(){
-        if($_SERVER["REQUEST_METHOD"]==="POST" && isset($_POST["creeDepot"])){
+    public function fairDepot(){
+        if($_SERVER["REQUEST_METHOD"]==="POST" && isset($_POST["fairDepot"])){
             $account_id = $_POST["account_id"];
             $amount= $_POST["amount"];
             $transactionInfo=["account_id"=>$account_id,"amount"=>$amount];
             $this->DepotModel->addTransaction($transactionInfo);
-            $this->AccountModel->addAmount($account_id,$amount);
+            $this->AccountModel->addBalance($account_id,$amount);
+            header("Location: /client/comptes");
+        }
+    }
+    // methode pour cree un depot 
+    public function fairRetrait(){
+        if($_SERVER["REQUEST_METHOD"]==="POST" && isset($_POST["fairRetrait"])){
+            $account_id = $_POST["account_id"];
+            $amount= $_POST["amount"];
+            $transactionInfo=["account_id"=>$account_id,"amount"=>$amount];
+            $this->DepotModel->addTransaction($transactionInfo);
+            $this->AccountModel->reduceBalance($account_id,$amount);
             header("Location: /client/comptes");
         }
     }

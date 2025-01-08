@@ -23,31 +23,46 @@ class Account extends DataBase
 
 
     // methode to get amount 
-    public function getAmount($account_id)
+    public function getBalance($account_id)
     {
         try {
-            $getAmountStatement = $this->conn->prepare("SELECT balance FROM accounts WHERE account_id = ?");
-            $getAmountStatement->execute([$account_id]);
+            $getBalanceStatement = $this->conn->prepare("SELECT balance FROM accounts WHERE account_id = ?");
+            $getBalanceStatement->execute([$account_id]);
 
-            $amount = $getAmountStatement->fetchColumn();;
+            $amount = $getBalanceStatement->fetchColumn();;
             return $amount;
         } catch (PDOException $e) {
             echo "Error finding user accounts: " . $e->getMessage();
         }
     }
 
-    // methode to update the amount
-    public function addAmount($account_id,$transaction_amount)
+    // methode to update the balance
+    public function updateBalance($account_id,$newBalance)
     {
-        echo "add amount called";
-        $oldAmount= $this->getAmount($account_id);
-        $newAmount=(int)$oldAmount+(int)$transaction_amount;
-
         try {
             $updateAmountStatement = $this->conn->prepare("UPDATE accounts SET balance=? WHERE account_id=?");
-            $updateAmountStatement->execute([$newAmount,$account_id]);
+            $updateAmountStatement->execute([$newBalance,$account_id]);
         } catch (PDOException $e) {
             echo "Error updating the amount: " . $e->getMessage();
         }
+    }
+    // methode to add the amount to balance
+    public function addBalance($account_id,$transaction_amount)
+    {
+        echo "add amount called";
+        $oldAmount= $this->getBalance($account_id);
+        $newBalance=(float)$oldAmount+(float)$transaction_amount;
+
+        $this->updateBalance($account_id,$newBalance);
+    }
+
+    // methode to reduce the amount from the balance
+    public function reduceBalance($account_id,$transaction_amount)
+    {
+        echo "add amount called";
+        $oldAmount= $this->getBalance($account_id);
+        $newBalance=(float)$oldAmount-(float)$transaction_amount;
+
+        $this->updateBalance($account_id,$newBalance);
     }
 }

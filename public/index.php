@@ -41,14 +41,8 @@ Route::get('/client/benificier', [ClientController::class, 'benificier']);
 Route::get('/client/historique', [ClientController::class, 'historique']);
 Route::get('/client/profil', [ClientController::class, 'profil']);
 
-Route::post('/client/creeDepot', [ClientController::class, 'creeDepot']);
-
-
-// Route::post('/register', [AuthController::class, 'handleRegister']);
-// Route::get('/login', [AuthController::class, 'showleLogin']);
-// Route::post('/login', [AuthController::class, 'handleLogin']);
-// Route::post('/logout', [AuthController::class, 'logout']);
-
+Route::post('/client/fairDepot', [ClientController::class, 'fairDepot']);
+Route::post('/client/fairRetrait', [ClientController::class, 'fairRetrait']);
 
 
 // Dispatch the request

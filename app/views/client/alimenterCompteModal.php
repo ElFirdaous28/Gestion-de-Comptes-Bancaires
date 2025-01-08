@@ -12,7 +12,7 @@
 
             <!-- Modal body -->
             <div class="p-6">
-                <form action="/client/creeDepot" method="POST" id="alimenterForm" class="space-y-6">
+                <form action="/client/fairDepot" method="POST" id="alimenterForm" class="space-y-6">
                     <!-- Sélection du compte -->
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-1">Compte à alimenter *</label>
@@ -71,7 +71,7 @@
                             class="px-4 py-2 border border-gray-300 rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-gray-500">
                             Annuler
                         </button>
-                        <button name="creeDepot" onclick="submitForm()"
+                        <button name="fairDepot" onclick="submitForm()"
                             class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
                             Confirmer l'alimentation
                         </button>
