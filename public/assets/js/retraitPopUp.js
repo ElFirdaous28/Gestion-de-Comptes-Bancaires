@@ -1,6 +1,6 @@
 lucide.createIcons();
 // Fonction pour afficher/masquer le modal
-function toggleModal(accountType) {
+function toggleretraitModal(accountType) {
     const modal = document.getElementById('retraitModal');
     modal.classList.toggle('hidden');
 

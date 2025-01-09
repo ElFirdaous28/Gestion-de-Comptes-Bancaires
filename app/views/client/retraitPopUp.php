@@ -5,7 +5,7 @@
             <!-- Modal header -->
             <div class="flex justify-between items-center p-6 border-b">
                 <h3 class="text-lg font-semibold text-gray-900">Retrait D'Argent</h3>
-                <button onclick="toggleModal()" class="text-gray-400 hover:text-gray-500">
+                <button onclick="toggleretraitModal()" class="text-gray-400 hover:text-gray-500">
                     <i data-lucide="x" class="w-6 h-6"></i>
                 </button>
             </div>
@@ -40,7 +40,7 @@
 
 
                     <div class="flex justify-end space-x-3 p-6 border-t bg-gray-50">
-                        <button onclick="toggleModal()"
+                        <button onclick="toggleretraitModal()"
                             class="px-4 py-2 border border-gray-300 rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-gray-500">
                             Annuler
                         </button>
