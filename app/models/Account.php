@@ -28,6 +28,24 @@ public function getAccounts(){
         echo "Error in getAcount: " . $e->getMessage();
     }
 }
+
+public function deleteAccount($account_id){
+    try{
+        $deleteAccountQuery = $this->conn->prepare("DELETE FROM accounts WHERE account_id = ?");
+        $deleteAccountQuery->execute([$account_id]);
+    }catch (PDOException $e){
+        echo "Error in deleteAcount: " . $e->getMessage();
+    }
+}
+
+public function changeAccountStatus($account_status, $account_id){
+    try{
+        $changeStatusQuery = $this->conn->prepare("UPDATE accounts SET account_status= ? WHERE account_id = ?");
+        $changeStatusQuery->execute([$account_status, $account_id]);
+    } catch (PDOException $e){
+        echo "Error in changeAccountStatus: " . $e->getMessage();
+    }
+}
 }
 
 

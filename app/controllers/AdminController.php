@@ -89,6 +89,27 @@ class AdminController extends BaseController
         }
     }
 
+    public function deleteAccount(){
+        if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['delete_account'])){
+            $account_id = $_POST['account_id'];
+
+            $this->AccountModel->deleteAccount($account_id);
+            header('location: /admin/comptes');
+        }
+    }
+
+    public function changeAccountStatus(){
+        if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['change_status'])){
+            $account_id = $_POST['account_id'];
+            $account_status = "blocked";
+
+            $this->AccountModel->changeAccountStatus($account_status,$account_id);
+            
+    
+        }
+        header('Location : /admin/comptes');
+    }
+
     // transactions page
     public function transactionsPage()
     {
