@@ -151,15 +151,21 @@
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap">
                             <div class="flex space-x-2">
-                                <button class="text-blue-600 hover:text-blue-900">
+                            <form method="POST" action="/admin/deleteAccount" style="display:inline;" onsubmit="return confirm('Are you sure you want to delete this account?');">
+                                <input type="hidden" name="account_id" value="<?= $accout['account_id'] ?>">
+                                <button class="text-gray-600 hover:text-blue-900" name="delete_account" >
                                     <i data-lucide="trash-2" class="w-5 h-5"></i>
                                 </button>
+                            </form>
                                 <button class="text-gray-600 hover:text-gray-900">
                                     <i data-lucide="edit" class="w-5 h-5"></i>
                                 </button>
-                                <button class="text-red-600 hover:text-red-900">
+                            <form method="POST" action="/admin/changeAccountStatus" style="display:inline;" onsubmit="return confirm('Are you sure you want to block this account?');">
+                                <input type="hidden" name="account_id" value="<?= $accout['account_id'] ?>">
+                                <button class="text-red-600 hover:text-red-900" name="change_status">
                                     <i data-lucide="lock" class="w-5 h-5"></i>
                                 </button>
+                            </form>
                             </div>
                         </td>
                     </tr>

@@ -36,6 +36,8 @@ Route::post('/admin/addUser', [AdminController::class, 'addUser']);
 Route::post('/admin/updateUser', [AdminController::class, 'updateUser']);
 Route::post('/admin/deleteUser', [AdminController::class, 'deleteUser']);
 Route::post('/admin/addAcount', [AdminController::class, 'addAcount']);
+Route::post('/admin/deleteAccount', [AdminController::class, 'deleteAccount']);
+Route::post('/admin/changeAccountStatus', [AdminController::class, 'changeAccountStatus']);
 
 // client routers
 Route::get('/client/dashboard', [ClientController::class, 'clientDashboard']);
