@@ -2,6 +2,7 @@
 require_once(__DIR__ . '/../models/User.php');
 require_once(__DIR__ . '/../models/Account.php');
 require_once(__DIR__ . '/../models/Depot.php');
+require_once(__DIR__ . '/../models/Retrait.php');
 require_once(__DIR__ . '/../models/Beneficiary.php');
 require_once(__DIR__ . '/../models/Virement.php');
 class ClientController extends BaseController
@@ -9,6 +10,7 @@ class ClientController extends BaseController
 
     private $AccountModel;
     private $DepotModel;
+    private $RetraitModel;
     private $VirmentModel;
     private $BeneficiaryModel;
     public function __construct()
@@ -16,6 +18,7 @@ class ClientController extends BaseController
 
         $this->AccountModel = new Account();
         $this->DepotModel = new Depot();
+        $this->RetraitModel = new Retrait();
         $this->VirmentModel = new Virement();
         $this->BeneficiaryModel = new Beneficiary();
     }
@@ -50,7 +53,7 @@ class ClientController extends BaseController
             $account_id = $_POST["account_id"];
             $amount= $_POST["amount"];
             $transactionInfo=["account_id"=>$account_id,"amount"=>$amount];
-            $this->DepotModel->addTransaction($transactionInfo);
+            $this->RetraitModel->addTransaction($transactionInfo);
             $this->AccountModel->reduceBalance($account_id,$amount);
             header("Location: /client/comptes");
         }
@@ -131,8 +134,8 @@ class ClientController extends BaseController
     // historique page
     public function historique()
     {
-
-        $this->render('client/historique');
+        $transactions =$this->DepotModel->getALLTransactions();
+        $this->render('client/historique',["transactions"=>$transactions]);
     }
 
     // profil page
