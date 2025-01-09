@@ -15,6 +15,19 @@ public function addAcount($account_id, $user_id, $account_type, $balance,$plafon
         echo "Error in add acount: " . $e->getMessage();
     }
 }
+
+public function getAccounts(){
+    try{
+        $getAccountQuery = $this->conn->prepare("SELECT accounts.*, users.full_name ,users.email FROM accounts
+                            LEFT JOIN users ON accounts.user_id = users.user_id;");
+        $getAccountQuery->execute();
+
+        $accounts = $getAccountQuery->fetchAll(PDO::FETCH_ASSOC);
+        return $accounts;
+    }catch (PDOException $e) {
+        echo "Error in getAcount: " . $e->getMessage();
+    }
+}
 }
 
 
