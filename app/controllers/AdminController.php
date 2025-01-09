@@ -84,6 +84,7 @@ class AdminController extends BaseController
             $balance = $_POST['balance_input'];
             $plafond_retrait_jour = $_POST['plafond_input'];
             $decouvert_autorise = $_POST['decouvert_input'];
+            // var_dump($_POST); die();
 
             $this->AccountModel->addAcount($account_id, $user_id, $account_type, $balance,$plafond_retrait_jour,$decouvert_autorise);
             header('Location: /admin/comptes');
