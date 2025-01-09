@@ -16,7 +16,7 @@
             <i data-lucide="send"></i>
             <span>Virements</span>
         </a>
-        <a href="/client/benificier" class="flex items-center w-full p-4 space-x-3 text-gray-600 hover:bg-gray-50">
+        <a href="/client/benificiers" class="flex items-center w-full p-4 space-x-3 text-gray-600 hover:bg-gray-50">
             <i data-lucide="users"></i>
             <span>Bénéficiaires</span>
         </a>
