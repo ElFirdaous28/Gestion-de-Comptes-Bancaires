@@ -92,50 +92,48 @@
                     </thead>
                     <tbody class="divide-y divide-gray-200">
                         <!-- Client 1 -->
-                         <?php foreach($users as $user): ?>
-                        <tr class="hover:bg-gray-50">
-                            <td class="p-3">
-                                <div class="flex items-center">
-                                    <img
-                                        src="/api/placeholder/40/40"
-                                        alt="Thomas Robert"
-                                        class="w-10 h-10 rounded-full" />
-                                    <div class="ml-4">
-                                        <div class="full_name text-sm font-medium text-gray-900">
-                                            <?= htmlspecialchars($user["full_name"]);?>
+                        <?php foreach ($users as $user): ?>
+                            <tr class="hover:bg-gray-50">
+                                <td class="p-3">
+                                    <div class="flex items-center">
+                                        <img
+                                            src="/api/placeholder/40/40"
+                                            alt="Thomas Robert"
+                                            class="w-10 h-10 rounded-full" />
+                                        <div class="ml-4">
+                                            <div class="full_name text-sm font-medium text-gray-900">
+                                                <?= htmlspecialchars($user["full_name"]); ?>
+                                            </div>
+                                            <div class="text-sm text-gray-500">ID: #45789</div>
                                         </div>
-                                        <div class="text-sm text-gray-500">ID: #45789</div>
                                     </div>
-                                </div>
-                            </td>
-                            <td class="p-3">
-                                <div class="email text-sm text-gray-900"><?= htmlspecialchars($user['email'])?></div>
-                            </td>
-                            <td class="p-3">
-                                <div class="text-sm text-gray-900"><?=$user['accounts_number']?>comptes</div>
-                            </td>
-                            <!-- <td class="p-3">
-                                <span
-                                    class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                                    Actif
-                                </span>
-                            </td> -->
-                            <td class="p-3">
-                                <div class="flex space-x-2">
-                                    <button class="text-blue-600 hover:text-blue-900">
-                                        <i data-lucide="eye" class="w-5 h-5"></i>
-                                    </button>
-                                    <button onclick="toggleAddClientModal(event)" id="edit_btn" class="edit_user text-gray-600 hover:text-gray-900">
-                                        <i data-lucide="edit" class="w-5 h-5"></i>
-                                    </button>
-                                    <button class="text-red-600 hover:text-red-900">
-                                        <i data-lucide="lock" class="w-5 h-5"></i>
-                                    </button>
-                                </div>
-                            </td>
-                        </tr>
-                       
-                        <?php endforeach?>
+                                </td>
+                                <td class="p-3">
+                                    <div class="email text-sm text-gray-900"><?= htmlspecialchars($user['email']) ?></div>
+                                </td>
+                                <td class="p-3">
+                                    <div class="text-sm text-gray-900"><?= $user['accounts_number'] ?>comptes</div>
+                                </td>
+                                <td class="p-3">
+                                    <div class="flex space-x-2">
+                                        <form method="POST" action="/admin/deleteUser" style="display:inline;" onsubmit="return confirm('Are you sure you want to delete this user?');">
+                                            <input type="hidden" name="user_id" value="<?= $user['user_id'] ?>">
+                                            <button class="text-blue-600 hover:text-blue-900" name="delete_user" >
+                                                <i data-lucide="eye" class="w-5 h-5"></i>
+                                            </button>
+                                        </form>
+                                        <button onclick="toggleAddClientModal(event)" id="edit_btn" data-role="<?= $user['role'] ?>" class="edit_user text-gray-600 hover:text-gray-900"
+                                            data-user-id="<?= $user['user_id'] ?>" class="edit_user text-gray-600 hover:text-gray-900">
+                                            <i data-lucide="edit" class="w-5 h-5"></i>
+                                        </button>
+                                        <button class="text-red-600 hover:text-red-900">
+                                            <i data-lucide="lock" class="w-5 h-5"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+
+                        <?php endforeach ?>
                     </tbody>
                 </table>
 
@@ -180,13 +178,14 @@
                                             <input
                                                 type="email" name="email" id="email"
                                                 class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                                            <input type="hidden" name="user_id" id="user_id_input">
                                         </div>
 
                                         <div class="md:col-span-2">
                                             <label
                                                 class="block text-sm font-medium text-gray-700 mb-1">Role
                                                 *</label>
-                                            <select required id="role" name="role" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                            <select required id="role" name="client_role" class="role w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
                                                 <option value="">Sélectionner</option>
                                                 <option value="admin">Admin</option>
                                                 <option value="client">Client</option>
@@ -202,7 +201,7 @@
                                             Annuler
                                         </button>
                                         <button
-                                            onclick="submitAddClientForm()" name="addUser"
+                                            onclick="submitAddClientForm()" name="addUser" id="add_user_btn"
                                             class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
                                             Créer le compte
                                         </button>
@@ -247,6 +246,6 @@
     </div>
 </div>
 <script src="/assets/js/clientPopUp.js"></script>
-<?php 
-require_once(__DIR__ . '../../partials/buttom.php'); 
+<?php
+require_once(__DIR__ . '../../partials/buttom.php');
 ?>

@@ -33,6 +33,9 @@ Route::get('/admin/clients', [AdminController::class, 'clientsPage']);
 Route::get('/admin/comptes', [AdminController::class, 'comptesPage']);
 Route::get('/admin/transactions', [AdminController::class, 'transactionsPage']);
 Route::post('/admin/addUser', [AdminController::class, 'addUser']);
+Route::post('/admin/updateUser', [AdminController::class, 'updateUser']);
+Route::post('/admin/deleteUser', [AdminController::class, 'deleteUser']);
+Route::post('/admin/addAcount', [AdminController::class, 'addAcount']);
 
 
 // client routers
