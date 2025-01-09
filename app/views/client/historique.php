@@ -95,7 +95,6 @@
     </div>
 
     <!-- Liste des transactions -->
-    <!-- Liste des transactions -->
     <div class="bg-white rounded-lg shadow mt-6">
         <div class="p-4 md:p-6">
             <div class="flex justify-between items-center mb-4">
@@ -138,7 +137,7 @@
                     </thead>
                     <tbody class="bg-white divide-y divide-gray-200">
                         <!-- Transaction 1 -->
-                        <tr class="hover:bg-gray-50">
+                        <!-- <tr class="hover:bg-gray-50">
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                                 15 Jan 2025
                             </td>
@@ -163,64 +162,46 @@
                                     Détails
                                 </button>
                             </td>
-                        </tr>
+                        </tr> -->
+                        <?php foreach ($transactions as $transaction): ?>
+                            <tr class="hover:bg-gray-50">
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 flex flex-col gap-2">
+                                    <div>
+                                        <?= htmlspecialchars(date("Y-m-d", strtotime($transaction["created_at"]))) ?>
+                                    </div>
+                                    <div>
+                                        <?= htmlspecialchars(date("H:i:s", strtotime($transaction["created_at"]))) ?>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4 text-sm text-gray-900 max-w-40">
+                                    <?= htmlspecialchars($transaction["motif"]) ?>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                                    <span class="inline-flex items-center justify-center px-2.5 py-0.5 rounded-full text-xs font-medium capitalize min-w-16
+                                    <?= $transaction["transaction_type"] === 'depot' ? 'bg-green-100 text-green-800' : ($transaction["transaction_type"] === 'retrait' ? 'bg-red-100 text-red-800' :'bg-blue-100 text-blue-800') ?>">
+                                        <?= htmlspecialchars($transaction["transaction_type"]) ?>
+                                    </span>
+
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 capitalize">
+                                    Compte <?= htmlspecialchars($transaction["account_type"]) ?>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-right font-medium <?= $transaction["transaction_type"] === 'depot' ? 'text-green-600' : 'text-red-600' ?>">
+                                    <?= $transaction["transaction_type"] === 'depot' ? '+' : '-' ?> <?= htmlspecialchars($transaction["amount"]) ?>€
+                                </td>
+
+                                <td class="px-6 py-4 whitespace-nowrap text-right text-sm">
+                                    <button class="text-blue-600 hover:text-blue-900">
+                                        Détails
+                                    </button>
+                                </td>
+                            </tr>
+                        <?php endforeach ?>
 
                         <!-- Transaction 2 -->
-                        <tr class="hover:bg-gray-50">
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                                14 Jan 2025
-                            </td>
-                            <td class="px-6 py-4 text-sm text-gray-900">
-                                <div>Salaire Entreprise XYZ</div>
-                                <div class="text-gray-500">Salaire Janvier 2025</div>
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                                <span
-                                    class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
-                                    Virement reçu
-                                </span>
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                                Compte Courant
-                            </td>
-                            <td
-                                class="px-6 py-4 whitespace-nowrap text-sm text-right font-medium text-green-600">
-                                + 2,500.00 €
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-right text-sm">
-                                <button class="text-blue-600 hover:text-blue-900">
-                                    Détails
-                                </button>
-                            </td>
-                        </tr>
 
-                        <!-- Plus de transactions... -->
                     </tbody>
                 </table>
-            </div>
-
-            <!-- Pagination -->
-            <div class="flex items-center justify-between mt-6 flex-col md:flex-row">
-                <div class="text-sm text-gray-700 mb-2 md:mb-0">
-                    Affichage de 1 à 10 sur 56 transactions
-                </div>
-                <div class="flex space-x-2">
-                    <button class="px-3 py-1 border rounded text-gray-600 hover:bg-gray-50">
-                        Précédent
-                    </button>
-                    <button class="px-3 py-1 border bg-blue-50 text-blue-600 rounded">
-                        1
-                    </button>
-                    <button class="px-3 py-1 border rounded text-gray-600 hover:bg-gray-50">
-                        2
-                    </button>
-                    <button class="px-3 py-1 border rounded text-gray-600 hover:bg-gray-50">
-                        3
-                    </button>
-                    <button class="px-3 py-1 border rounded text-gray-600 hover:bg-gray-50">
-                        Suivant
-                    </button>
-                </div>
             </div>
         </div>
     </div>
