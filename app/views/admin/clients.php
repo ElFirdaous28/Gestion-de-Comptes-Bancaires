@@ -119,7 +119,7 @@
                                         <form method="POST" action="/admin/deleteUser" style="display:inline;" onsubmit="return confirm('Are you sure you want to delete this user?');">
                                             <input type="hidden" name="user_id" value="<?= $user['user_id'] ?>">
                                             <button class="text-blue-600 hover:text-blue-900" name="delete_user" >
-                                                <i data-lucide="eye" class="w-5 h-5"></i>
+                                                <i data-lucide="trash-2" class="w-5 h-5"></i>
                                             </button>
                                         </form>
                                         <button onclick="toggleAddClientModal(event)" id="edit_btn" data-role="<?= $user['role'] ?>" class="edit_user text-gray-600 hover:text-gray-900"

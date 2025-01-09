@@ -42,9 +42,6 @@ class AdminController extends BaseController
     public function clientsPage()
     {
         $users = $this->UserModel->showUsers();
-        // echo '<pre>';
-        // var_dump($users); die();
-        // echo '</pre>';
         $this->render('admin/clients',["users"=>$users]);
     }
 
@@ -73,7 +70,8 @@ class AdminController extends BaseController
     public function comptesPage()
     {
         $users = $this->UserModel->showUsers();
-        $this->render('admin/comptes',["users"=>$users]);
+        $accounts = $this->AccountModel->getAccounts();
+        $this->render('admin/comptes',["users"=>$users,"accounts"=>$accounts]);
     }
 
     public function addAcount(){

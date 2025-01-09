@@ -1,6 +1,4 @@
-<?php
 
-?>
 <!-- Modal Ajout/Modification Compte -->
 <div id="accountActionsModal"
     class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full hidden z-50">
