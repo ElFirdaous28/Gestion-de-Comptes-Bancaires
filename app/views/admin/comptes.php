@@ -126,13 +126,8 @@
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap">
                             <div class="flex items-center">
-                                <div class="flex-shrink-0 h-10 w-10">
-                                    <img src="/api/placeholder/40/40" alt class="h-10 w-10 rounded-full">
-                                </div>
-                                <div class="ml-4">
                                     <div class="text-sm font-medium text-gray-900"><?= htmlspecialchars($accout["full_name"]); ?></div>
                                     <div class="text-sm text-gray-500"><?= htmlspecialchars($accout["email"]); ?></div>
-                                </div>
                             </div>
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap">
@@ -151,7 +146,7 @@
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap">
                             <div class="flex space-x-2">
-                            <form method="POST" action="/admin/deleteAccount" style="display:inline;" onsubmit="return confirm('Are you sure you want to delete this account?');">
+                            <form method="POST" action="/admin/deleteAccount" style="display:inline;" onsubmit="return confirm('Vous êtes sûr, vous voulez supprimer ce compte?');">
                                 <input type="hidden" name="account_id" value="<?= $accout['account_id'] ?>">
                                 <button class="text-gray-600 hover:text-blue-900" name="delete_account" >
                                     <i data-lucide="trash-2" class="w-5 h-5"></i>
@@ -160,9 +155,9 @@
                                 <button class="text-gray-600 hover:text-gray-900">
                                     <i data-lucide="edit" class="w-5 h-5"></i>
                                 </button>
-                            <form method="POST" action="/admin/changeAccountStatus" style="display:inline;" onsubmit="return confirm('Are you sure you want to block this account?');">
+                            <form method="POST" action="/admin/changeAccountStatus" style="display:inline;" onsubmit="return confirm('Vous êtes sûr, vous voulez bloquer ce compte?');">
                                 <input type="hidden" name="account_id" value="<?= $accout['account_id'] ?>">
-                                <button class="text-red-600 hover:text-red-900" name="change_status">
+                                <button class="text-gray-600 hover:text-red-900" name="change_status">
                                     <i data-lucide="lock" class="w-5 h-5"></i>
                                 </button>
                             </form>

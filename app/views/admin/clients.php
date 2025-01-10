@@ -95,18 +95,10 @@
                         <?php foreach ($users as $user): ?>
                             <tr class="hover:bg-gray-50">
                                 <td class="p-3">
-                                    <div class="flex items-center">
-                                        <img
-                                            src="/api/placeholder/40/40"
-                                            alt="Thomas Robert"
-                                            class="w-10 h-10 rounded-full" />
-                                        <div class="ml-4">
-                                            <div class="full_name text-sm font-medium text-gray-900">
-                                                <?= htmlspecialchars($user["full_name"]); ?>
-                                            </div>
-                                            <div class="text-sm text-gray-500">ID: #45789</div>
-                                        </div>
+                                    <div class="full_name text-sm font-medium text-gray-900">
+                                        <?= htmlspecialchars($user["full_name"]); ?>
                                     </div>
+                                    <div class="text-sm text-gray-500">ID: #45789</div>
                                 </td>
                                 <td class="p-3">
                                     <div class="email text-sm text-gray-900"><?= htmlspecialchars($user['email']) ?></div>
@@ -116,9 +108,9 @@
                                 </td>
                                 <td class="p-3">
                                     <div class="flex space-x-2">
-                                        <form method="POST" action="/admin/deleteUser" style="display:inline;" onsubmit="return confirm('Are you sure you want to delete this user?');">
+                                        <form method="POST" action="/admin/deleteUser" style="display:inline;" onsubmit="return confirm('Vous êtes sûr, vous voulez supprimer cet utilisateur ?');">
                                             <input type="hidden" name="user_id" value="<?= $user['user_id'] ?>">
-                                            <button class="text-blue-600 hover:text-blue-900" name="delete_user" >
+                                            <button class="text-gray-600 hover:text-blue-900" name="delete_user" >
                                                 <i data-lucide="trash-2" class="w-5 h-5"></i>
                                             </button>
                                         </form>
@@ -126,7 +118,7 @@
                                             data-user-id="<?= $user['user_id'] ?>" class="edit_user text-gray-600 hover:text-gray-900">
                                             <i data-lucide="edit" class="w-5 h-5"></i>
                                         </button>
-                                        <button class="text-red-600 hover:text-red-900">
+                                        <button class="text-gray-600 hover:text-red-900">
                                             <i data-lucide="lock" class="w-5 h-5"></i>
                                         </button>
                                     </div>

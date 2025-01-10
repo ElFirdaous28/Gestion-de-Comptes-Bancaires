@@ -53,7 +53,7 @@ class AdminController extends BaseController
             $role = $_POST['client_role'];
 
             $this->UserModel->updateUser($fullname,$email,$role,$user_id);
-            header('location: /admin/clients');
+            header('location:/admin/clients');
         }
     }
 
@@ -62,7 +62,7 @@ class AdminController extends BaseController
             $user_id = $_POST["user_id"];
 
             $this->UserModel->deleteUser($user_id);
-            header('location: /admin/clients');
+            header('location:/admin/clients');
         }
     }
 
@@ -85,7 +85,7 @@ class AdminController extends BaseController
             // var_dump($_POST); die();
 
             $this->AccountModel->addAcount($account_id, $user_id, $account_type, $balance,$plafond_retrait_jour,$decouvert_autorise);
-            header('Location: /admin/comptes');
+            header('Location:/admin/comptes');
         }
     }
 
@@ -94,20 +94,20 @@ class AdminController extends BaseController
             $account_id = $_POST['account_id'];
 
             $this->AccountModel->deleteAccount($account_id);
-            header('location: /admin/comptes');
+            header('location:/admin/comptes');
         }
     }
 
     public function changeAccountStatus(){
         if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['change_status'])){
             $account_id = $_POST['account_id'];
-            $account_status = "blocked";
 
-            $this->AccountModel->changeAccountStatus($account_status,$account_id);
+            $current_status = $this->AccountModel->getAccountStatus($account_id);
+            $new_status = ($current_status === 'active')? 'blocked' : 'active';
+            $this->AccountModel->changeAccountStatus($new_status,$account_id);
             
-    
+            header('Location:/admin/comptes');
         }
-        header('Location : /admin/comptes');
     }
 
     // transactions page

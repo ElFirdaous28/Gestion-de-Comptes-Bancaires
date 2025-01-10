@@ -25,7 +25,7 @@ public function getAccounts(){
         $accounts = $getAccountQuery->fetchAll(PDO::FETCH_ASSOC);
         return $accounts;
     }catch (PDOException $e) {
-        echo "Error in getAcount: " . $e->getMessage();
+        echo "Error in getAccounts: " . $e->getMessage();
     }
 }
 
@@ -35,7 +35,13 @@ public function deleteAccount($account_id){
         $deleteAccountQuery->execute([$account_id]);
     }catch (PDOException $e){
         echo "Error in deleteAcount: " . $e->getMessage();
-    }
+    } 
+}
+
+public function getAccountStatus($account_id) {
+    $stmt = $this->conn->prepare("SELECT account_status FROM accounts WHERE account_id = ?");
+    $stmt->execute([$account_id]);
+    return $stmt->fetchColumn();
 }
 
 public function changeAccountStatus($account_status, $account_id){
@@ -47,6 +53,5 @@ public function changeAccountStatus($account_status, $account_id){
     }
 }
 }
-
 
 ?>
