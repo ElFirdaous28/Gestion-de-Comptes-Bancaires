@@ -36,11 +36,11 @@ class User extends DataBase
     public function showUsers()
     {
         try {
-            $showUsersQuery = $this->conn->prepare("SELECT users.*,COUNT(accounts.user_id) as accounts_number, accounts.account_type 
-                                            FROM users
-                                            LEFT JOIN accounts ON users.user_id = accounts.user_id
-                                             WHERE users.role != 'admin'
-                                            GROUP BY users.user_id, accounts.account_type;");
+            $showUsersQuery = $this->conn->prepare("SELECT users.*, COUNT(accounts.user_id) AS accounts_number
+                                                    FROM users
+                                                    LEFT JOIN accounts ON users.user_id = accounts.user_id
+                                                    WHERE users.role != 'admin'
+                                                    GROUP BY users.user_id;");
             $showUsersQuery->execute();
 
             $users = $showUsersQuery->fetchAll(PDO::FETCH_ASSOC);
