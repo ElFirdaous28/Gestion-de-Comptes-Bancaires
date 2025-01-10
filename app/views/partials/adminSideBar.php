@@ -1,6 +1,6 @@
 <!-- Sidebar avec classe pour contrôler la visibilité -->
 <div id="sidebar"
-class="fixed inset-y-0 left-0 transform -translate-x-full lg:translate-x-0 lg:relative lg:flex w-64 bg-gray-900 transition-transform duration-200 ease-in-out z-30">
+class="fixed h-screen inset-y-0 left-0 transform -translate-x-full lg:translate-x-0 lg:relative lg:flex w-64 bg-gray-900 transition-transform duration-200 ease-in-out z-30">
 <div class="flex flex-col h-full">
     <div class="p-6">
         <div class="flex items-center justify-between">
@@ -71,7 +71,7 @@ class="fixed inset-y-0 left-0 transform -translate-x-full lg:translate-x-0 lg:re
             <!-- Menu Profil -->
             <div id="profileMenu"
                 class="absolute bottom-full left-0 w-full mb-2 bg-gray-800 rounded-lg shadow-lg hidden">
-                <a href="#"
+                <a href="/admin/profil"
                     class="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700 rounded-t-lg">
                     <i data-lucide="user"
                         class="w-4 h-4 inline-block mr-2"></i>
