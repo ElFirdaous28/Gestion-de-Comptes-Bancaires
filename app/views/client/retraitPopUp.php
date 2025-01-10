@@ -38,6 +38,15 @@
                         <p class="mt-1 text-sm text-gray-500">Montant minimum : 0.01 €</p>
                     </div>
 
+                    <!-- motif -->
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Motif *</label>
+                        <input
+                            name="motif"
+                            type="text"
+                            class="mt-1 block w-full rounded-md border border-gray-300 p-2"
+                            placeholder="Motif du virement" />
+                    </div>
 
                     <div class="flex justify-end space-x-3 p-6 border-t bg-gray-50">
                         <button onclick="toggleretraitModal()"

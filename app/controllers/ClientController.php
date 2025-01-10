@@ -42,7 +42,8 @@ class ClientController extends BaseController
         if($_SERVER["REQUEST_METHOD"]==="POST" && isset($_POST["fairDepot"])){
             $account_id = $_POST["account_id"];
             $amount= $_POST["amount"];
-            $transactionInfo=["account_id"=>$account_id,"amount"=>$amount];
+            $motif=$_POST["motif"];
+            $transactionInfo=["account_id"=>$account_id,"amount"=>$amount,"motif"=>$motif];
             $this->DepotModel->addTransaction($transactionInfo);
             $this->AccountModel->addBalance($account_id,$amount);
             header("Location: /client/comptes");
@@ -53,7 +54,8 @@ class ClientController extends BaseController
         if($_SERVER["REQUEST_METHOD"]==="POST" && isset($_POST["fairRetrait"])){
             $account_id = $_POST["account_id"];
             $amount= $_POST["amount"];
-            $transactionInfo=["account_id"=>$account_id,"amount"=>$amount];
+            $motif=$_POST["motif"];
+            $transactionInfo=["account_id"=>$account_id,"amount"=>$amount,"motif"=>$motif];
             $this->RetraitModel->addTransaction($transactionInfo);
             $this->AccountModel->reduceBalance($account_id,$amount);
             header("Location: /client/comptes");
@@ -74,8 +76,9 @@ class ClientController extends BaseController
             $account_id = $_POST["account_id"];
             $amount= $_POST["amount"];
             $beneficiary_account_id= $_POST["beneficiary_account_id"];
+            $motif=$_POST["motif"];
 
-            $transactionInfo=["account_id"=>$account_id,"amount"=>$amount,"beneficiary_account_id"=>$beneficiary_account_id];
+            $transactionInfo=["account_id"=>$account_id,"amount"=>$amount,"beneficiary_account_id"=>$beneficiary_account_id,"motif"=>$motif];
             $this->VirmentModel->addTransaction($transactionInfo);
             // add balance to benefu=iciary
             $this->AccountModel->addBalance($beneficiary_account_id,$amount);
