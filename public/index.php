@@ -42,17 +42,20 @@ Route::post('/admin/changeAccountStatus', [AdminController::class, 'changeAccoun
 // client routers
 Route::get('/client/dashboard', [ClientController::class, 'clientDashboard']);
 Route::get('/client/comptes', [ClientController::class, 'mesComptes']);
+
+Route::post('/client/fairDepot', [ClientController::class, 'fairDepot']);
+Route::post('/client/fairRetrait', [ClientController::class, 'fairRetrait']);
+
 Route::get('/client/virement', [ClientController::class, 'virement']);
-Route::get('/client/benificier', [ClientController::class, 'benificier']);
+Route::post('/client/virement/fairVirment', [ClientController::class, 'fairVirment']);
+
+Route::get('/client/benificiers', [ClientController::class, 'benificiers']);
+Route::post('/client/benificiers/addBeneficiary', [ClientController::class, 'addBeneficiary']);
+Route::post('/client/benificiers/updateBeneficiary', [ClientController::class, 'updateBeneficiary']);
+Route::post('/client/benificiers/deleteBeneficiary', [ClientController::class, 'deleteBeneficiary']);
+
 Route::get('/client/historique', [ClientController::class, 'historique']);
 Route::get('/client/profil', [ClientController::class, 'profil']);
-
-
-// Route::post('/register', [AuthController::class, 'handleRegister']);
-// Route::get('/login', [AuthController::class, 'showleLogin']);
-// Route::post('/login', [AuthController::class, 'handleLogin']);
-// Route::post('/logout', [AuthController::class, 'logout']);
-
 
 
 // Dispatch the request
