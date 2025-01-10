@@ -12,15 +12,15 @@
 
             <!-- Modal body -->
             <div class="p-6">
-                <form id="alimenterForm" class="space-y-6">
+                <form action="/client/fairDepot" method="POST" id="alimenterForm" class="space-y-6">
                     <!-- Sélection du compte -->
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-1">Compte à alimenter *</label>
-                        <select required
+                        <select name="account_id" required
                             class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
-                            <option value="">Sélectionnez un compte</option>
-                            <option value="courant">Compte Courant - FR76 1234 5678 9012 (2,450.50 €)</option>
-                            <option value="epargne">Compte Épargne - FR76 9876 5432 1098 (15,750.20 €)</option>
+                            <?php foreach ($accounts as $account): ?>
+                                <option value="<?= htmlspecialchars($account["account_id"]) ?>">Compte <?= htmlspecialchars($account["account_type"]) ?> (<?= htmlspecialchars($account["balance"]) ?>)</option>
+                            <?php endforeach ?>
                         </select>
                     </div>
 
@@ -31,7 +31,7 @@
                             <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                                 <span class="text-gray-500">€</span>
                             </div>
-                            <input type="number" required min="0.01" step="0.01"
+                            <input name="amount" type="number" required min="0.01" step="0.01"
                                 class="w-full pl-8 pr-12 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                                 placeholder="0.00">
                         </div>
@@ -66,32 +66,31 @@
                         </div>
                     </div>
 
-                    <!-- Message de confirmation -->
-                    <div class="bg-blue-50 p-4 rounded-lg">
-                        <div class="flex">
-                            <div class="flex-shrink-0">
-                                <i data-lucide="info" class="h-5 w-5 text-blue-400"></i>
-                            </div>
-                            <div class="ml-3">
-                                <p class="text-sm text-blue-700">
-                                    Le montant sera crédité sur votre compte selon le mode de paiement choisi.
-                                </p>
-                            </div>
-                        </div>
+                    <div class="flex justify-end space-x-3 p-6 border-t bg-gray-50">
+                        <button onclick="toggleModal()"
+                            class="px-4 py-2 border border-gray-300 rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-gray-500">
+                            Annuler
+                        </button>
+                        <button name="fairDepot" onclick="submitForm()"
+                            class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            Confirmer l'alimentation
+                        </button>
                     </div>
                 </form>
             </div>
 
-            <!-- Modal footer -->
-            <div class="flex justify-end space-x-3 p-6 border-t bg-gray-50">
-                <button onclick="toggleModal()"
-                    class="px-4 py-2 border border-gray-300 rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-gray-500">
-                    Annuler
-                </button>
-                <button onclick="submitForm()"
-                    class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
-                    Confirmer l'alimentation
-                </button>
+            <!-- Message de confirmation -->
+            <div class="bg-blue-50 p-4 rounded-lg">
+                <div class="flex">
+                    <div class="flex-shrink-0">
+                        <i data-lucide="info" class="h-5 w-5 text-blue-400"></i>
+                    </div>
+                    <div class="ml-3">
+                        <p class="text-sm text-blue-700">
+                            Le montant sera crédité sur votre compte selon le mode de paiement choisi.
+                        </p>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
