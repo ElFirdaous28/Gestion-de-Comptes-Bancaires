@@ -11,6 +11,7 @@ class ClientController extends BaseController
     private $DepotModel;
     private $VirmentModel;
     private $BeneficiaryModel;
+    private $UserModel;
     public function __construct()
     {
 
@@ -18,6 +19,7 @@ class ClientController extends BaseController
         $this->DepotModel = new Depot();
         $this->VirmentModel = new Virement();
         $this->BeneficiaryModel = new Beneficiary();
+        $this->UserModel = new User();
     }
     // client dashboard
     public function clientDashboard()
@@ -138,7 +140,18 @@ class ClientController extends BaseController
     // profil page
     public function profil()
     {
-
-        $this->render('client/profil');
+        $user = $this->UserModel->getUserById($_SESSION['user_loged_in_id']);
+        $this->render('client/profil',["user"=>$user]);
     }
+
+   public function updateUserInfo(){
+    if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_information'])){
+        $user_id = $_SESSION["user_loged_in_id"];
+        $fullname = $_POST['full_name_input'];
+        $email = $_POST['email_input'];
+        $this->UserModel->updateUserInformations($fullname, $email, $user_id);
+
+        header('Location:/admin/profil');
+    }
+   }
 }

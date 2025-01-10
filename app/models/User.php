@@ -68,4 +68,24 @@ class User extends DataBase
             echo "Error in update user: " . $e->getMessage();
         }
     }
+
+    public function updateUserInformations($fullname, $email, $user_id){
+        try{
+            $updateUserInfoQuery = $this->conn->prepare("UPDATE users SET full_name = ?, email = ? WHERE user_id = ?");
+            $updateUserInfoQuery->execute([$fullname, $email, $user_id]);
+        } catch (PDOException $e){
+            error_log("error getting user".$e->getMessage());
+        }
+    }
+
+    public function getUserById($user_id){
+        try{
+            $stmt = $this->conn->prepare("SELECT * FROM users WHERE user_id = ?");
+            $stmt->execute([$user_id]);
+            return $stmt->fetch(PDO::FETCH_ASSOC);
+
+        } catch (PDOException $e){
+            echo "Error in get user by id: " . $e->getMessage();
+        }
+    }
 }

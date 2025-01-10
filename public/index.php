@@ -39,6 +39,9 @@ Route::post('/admin/addAcount', [AdminController::class, 'addAcount']);
 Route::post('/admin/deleteAccount', [AdminController::class, 'deleteAccount']);
 Route::post('/admin/changeAccountStatus', [AdminController::class, 'changeAccountStatus']);
 
+Route::get('/admin/profil', [ClientController::class, 'profil']);
+Route::post('/admin/updateUserInformation', [ClientController::class, 'updateUserInfo']);
+
 // client routers
 Route::get('/client/dashboard', [ClientController::class, 'clientDashboard']);
 Route::get('/client/comptes', [ClientController::class, 'mesComptes']);
@@ -56,6 +59,8 @@ Route::post('/client/benificiers/deleteBeneficiary', [ClientController::class, '
 
 Route::get('/client/historique', [ClientController::class, 'historique']);
 Route::get('/client/profil', [ClientController::class, 'profil']);
+
+
 
 
 // Dispatch the request
