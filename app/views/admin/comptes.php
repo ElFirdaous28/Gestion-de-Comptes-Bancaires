@@ -114,92 +114,57 @@
                         </th>
                         <th
                             class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                            Dernière Activité
-                        </th>
-                        <th
-                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                             Actions
                         </th>
                     </tr>
                 </thead>
                 <tbody class="bg-white divide-y divide-gray-200">
-                    <!-- Account 1 -->
+                    <?php foreach($accounts as $accout) :?>
                     <tr class="hover:bg-gray-50">
                         <td class="px-6 py-4 whitespace-nowrap">
-                            <div class="text-sm font-medium text-gray-900">FR76
-                                1234 5678 9012</div>
-                            <div class="text-sm text-gray-500">#ACC-001</div>
+                            <div class="text-sm font-medium text-gray-900"><?= htmlspecialchars($accout["account_id"]); ?></div>
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap">
                             <div class="flex items-center">
-                                <div class="flex-shrink-0 h-10 w-10">
-                                    <img src="/api/placeholder/40/40" alt class="h-10 w-10 rounded-full">
-                                </div>
-                                <div class="ml-4">
-                                    <div class="text-sm font-medium text-gray-900">Thomas
-                                        Robert</div>
-                                    <div class="text-sm text-gray-500">thomas@email.com</div>
-                                </div>
+                                    <div class="text-sm font-medium text-gray-900"><?= htmlspecialchars($accout["full_name"]); ?></div>
+                                    <div class="text-sm text-gray-500"><?= htmlspecialchars($accout["email"]); ?></div>
                             </div>
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap">
-                            <div class="text-sm text-gray-900">Compte
-                                Courant</div>
+                            <div class="text-sm text-gray-900"><?= htmlspecialchars($accout["account_type"]); ?></div>
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap">
-                            <div class="text-sm font-medium text-gray-900">2,450.50
+                            <div class="text-sm font-medium text-gray-900"><?= htmlspecialchars($accout["balance"]); ?>
                                 €</div>
-                            <div class="text-xs text-green-600">+350€
-                                ce mois</div>
+                            <div class="text-xs text-green-600"></div>
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap">
                             <span
                                 class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                                Actif
+                                <?= htmlspecialchars($accout["account_status"]); ?>
                             </span>
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap">
-                            <div class="text-sm text-gray-900">Il y
-                                a 2 heures</div>
-                            <div class="text-sm text-gray-500">Virement
-                                sortant</div>
-                        </td>
-                        <td class="px-6 py-4 whitespace-nowrap">
                             <div class="flex space-x-2">
-                                <button class="text-blue-600 hover:text-blue-900">
-                                    <i data-lucide="eye" class="w-5 h-5"></i>
+                            <form method="POST" action="/admin/deleteAccount" style="display:inline;" onsubmit="return confirm('Vous êtes sûr, vous voulez supprimer ce compte?');">
+                                <input type="hidden" name="account_id" value="<?= $accout['account_id'] ?>">
+                                <button class="text-gray-600 hover:text-blue-900" name="delete_account" >
+                                    <i data-lucide="trash-2" class="w-5 h-5"></i>
                                 </button>
+                            </form>
                                 <button class="text-gray-600 hover:text-gray-900">
                                     <i data-lucide="edit" class="w-5 h-5"></i>
                                 </button>
-                                <button class="text-red-600 hover:text-red-900">
+                            <form method="POST" action="/admin/changeAccountStatus" style="display:inline;" onsubmit="return confirm('Vous êtes sûr, vous voulez bloquer ce compte?');">
+                                <input type="hidden" name="account_id" value="<?= $accout['account_id'] ?>">
+                                <button class="text-gray-600 hover:text-red-900" name="change_status">
                                     <i data-lucide="lock" class="w-5 h-5"></i>
                                 </button>
+                            </form>
                             </div>
                         </td>
                     </tr>
-
-                    <!-- Account 2 -->
-                    <tr class="hover:bg-gray-50">
-                        <td class="px-6 py-4 whitespace-nowrap">
-                            <div class="text-sm font-medium text-gray-900">FR76
-                                9876 5432 1098</div>
-                            <div class="text-sm text-gray-500">#ACC-002</div>
-                        </td>
-                        <td class="px-6 py-4 whitespace-nowrap">
-                            <div class="flex items-center">
-                                <div class="flex-shrink-0 h-10 w-10">
-                                    <img src="/api/placeholder/40/40" alt class="h-10 w-10 rounded-full">
-                                </div>
-                                <div class="ml-4">
-                                    <div class="text-sm font-medium text-gray-900">Marie
-                                        Dubois</div>
-                                    <div class="text-sm text-gray-500">marie@email.com</div>
-                                </div>
-                            </div>
-                        </td>
-                        <td class="px-6 py-4 whitespace-nowrap">
-                            <div class="text-sm text-gray"></div>
+                    <?php endforeach?>
                 </tbody>
             </table>
         </div>

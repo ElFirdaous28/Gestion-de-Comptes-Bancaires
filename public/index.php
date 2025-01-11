@@ -24,14 +24,23 @@ Route::get('/register', [AuthController::class, 'showRegister']);
 Route::get('/login', [AuthController::class, 'showLogin']);
 Route::post('/login', [AuthController::class, 'handleLogin']);
 Route::get('/logout', [AuthController::class, 'logout']);
+Route::get('/register', [AuthController::class, 'showRegister']);
 
 
 // admin routes 
-Route::get('/register', [AuthController::class, 'showRegister']);
 Route::get('/admin/dashboard', [AdminController::class, 'adminDashboard']);
 Route::get('/admin/clients', [AdminController::class, 'clientsPage']);
 Route::get('/admin/comptes', [AdminController::class, 'comptesPage']);
 Route::get('/admin/transactions', [AdminController::class, 'transactionsPage']);
+Route::post('/admin/addUser', [AdminController::class, 'addUser']);
+Route::post('/admin/updateUser', [AdminController::class, 'updateUser']);
+Route::post('/admin/deleteUser', [AdminController::class, 'deleteUser']);
+Route::post('/admin/addAcount', [AdminController::class, 'addAcount']);
+Route::post('/admin/deleteAccount', [AdminController::class, 'deleteAccount']);
+Route::post('/admin/changeAccountStatus', [AdminController::class, 'changeAccountStatus']);
+
+Route::get('/admin/profil', [ClientController::class, 'profil']);
+Route::post('/admin/updateUserInformation', [ClientController::class, 'updateUserInfo']);
 
 // client routers
 Route::get('/client/dashboard', [ClientController::class, 'clientDashboard']);
@@ -52,6 +61,11 @@ Route::get('/client/historique', [ClientController::class, 'historique']);
 Route::get('/client/transactionsList', [ClientController::class, 'transactionsList']);
 Route::get('/client/profil', [ClientController::class, 'profil']);
 Route::get('/client/releveDuCompte/{account_id}', [ClientController::class, 'releveDuCompte']);
+
+Route::post('/client/deleteAccountUser', [ClientController::class, 'deleteAccountUser']);
+
+
+
 
 
 // Dispatch the request

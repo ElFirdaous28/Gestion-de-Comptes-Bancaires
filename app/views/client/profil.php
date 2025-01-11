@@ -1,5 +1,12 @@
-<?php require_once(__DIR__ . '../../partials/clinetTop.php'); ?>
-<?php require_once(__DIR__ . '../../partials/clientSideBar.php'); ?>
+<?php
+if ($_SESSION['user_loged_in_role'] === "admin") {
+    require_once(__DIR__ . '../../partials/top.php');
+    require_once(__DIR__ . '../../partials/adminSideBar.php');
+} else {
+    require_once(__DIR__ . '../../partials/clinetTop.php');
+    require_once(__DIR__ . '../../partials/clientSideBar.php');
+}
+?>
 
 <!-- Main Content -->
 <div class="flex-1 p-8">
@@ -11,7 +18,7 @@
             <div class="bg-white rounded-lg shadow">
                 <div class="p-6">
                     <h3 class="text-lg font-semibold text-gray-700 mb-4">Informations Personnelles</h3>
-                    <form class="space-y-6">
+                    <form class="space-y-6" action="/admin/updateUserInformation" method="POST">
                         <!-- Photo de profil -->
                         <div class="flex items-center space-x-6">
                             <div class="relative">
@@ -32,90 +39,22 @@
                             </div>
                         </div>
 
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700">Civilité</label>
-                                <select class="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2">
-                                    <option>M.</option>
-                                    <option>Mme</option>
-                                </select>
-                            </div>
-
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700">Numéro client</label>
-                                <input type="text" readonly value="123456789"
-                                    class="mt-1 block w-full rounded-md border border-gray-300 bg-gray-50 px-3 py-2" />
-                            </div>
-
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700">Nom</label>
-                                <input type="text"
-                                    class="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2"
-                                    value="Dupont" />
-                            </div>
-
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700">Prénom</label>
-                                <input type="text"
-                                    class="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2"
-                                    value="Jean" />
-                            </div>
-
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700">Date de naissance</label>
-                                <input type="date"
-                                    class="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2"
-                                    value="1990-01-01" />
-                            </div>
-
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700">Nationalité</label>
-                                <select class="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2">
-                                    <option>Française</option>
-                                    <option>Autre</option>
-                                </select>
-                            </div>
-
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700">Email</label>
-                                <input type="email"
-                                    class="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2"
-                                    value="jean.dupont@email.com" />
-                            </div>
-
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700">Téléphone</label>
-                                <input type="tel"
-                                    class="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2"
-                                    value="06 12 34 56 78" />
-                            </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">Nom Complet</label>
+                            <input type="text" name="full_name_input"
+                                class="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2"
+                                value="<?= htmlspecialchars($user["full_name"]); ?> " />
                         </div>
 
                         <div>
-                            <label class="block text-sm font-medium text-gray-700">Adresse</label>
-                            <input type="text"
+                            <label class="block text-sm font-medium text-gray-700">Email</label>
+                            <input type="email" name="email_input"
                                 class="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2"
-                                value="123 rue de la Paix" />
-                        </div>
-
-                        <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
-                            <div class="col-span-2 md:col-span-1">
-                                <label class="block text-sm font-medium text-gray-700">Code postal</label>
-                                <input type="text"
-                                    class="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2"
-                                    value="75000" />
-                            </div>
-
-                            <div class="col-span-2 md:col-span-2">
-                                <label class="block text-sm font-medium text-gray-700">Ville</label>
-                                <input type="text"
-                                    class="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2"
-                                    value="Paris" />
-                            </div>
+                                value="<?= htmlspecialchars($user['email']) ?>" />
                         </div>
 
                         <div class="flex justify-end pt-4">
-                            <button type="submit"
+                            <button type="submit" name="update_information"
                                 class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">
                                 Sauvegarder les modifications
                             </button>
@@ -201,32 +140,26 @@
                                 </label>
                             </div>
                         </div>
+                    </div>
 
-                        <div class="pt-4">
-                            <h4 class="text-sm font-medium text-gray-700">Langue et région</h4>
-                            <div class="mt-2 space-y-4">
-                                <select class="block w-full rounded-md border border-gray-300 px-3 py-2">
-                                    <option>Français</option>
-                                    <option>English</option>
-                                </select>
-                                <select class="block w-full rounded-md border border-gray-300 px-3 py-2">
-                                    <option>EUR (€)</option>
-                                    <option>USD ($)</option>
-                                </select>
-                            </div>
+                    <form action="/client/deleteAccountUser" method="POST">
+                        <div class="mt-6 pt-6 border-t">
+                            <button class="flex items-center text-red-600 hover:text-red-800" name="delete_account_user">
+                                <i data-lucide="trash-2" class="w-4 h-4 mr-2"></i>
+                                Supprimer mon compte
+                            </button>
                         </div>
-                    </div>
-
-                    <div class="mt-6 pt-6 border-t">
-                        <button type="button" class="flex items-center text-red-600 hover:text-red-800">
-                            <i data-lucide="trash-2" class="w-4 h-4 mr-2"></i>
-                            Supprimer mon compte
-                        </button>
-                    </div>
+                    </form>
                 </div>
             </div>
-        </div>
+        </div> 
     </div>
 </div>
 
-<?php require_once(__DIR__ . '../../partials/clientButtom.php'); ?>
+<?php
+if ($_SESSION['user_loged_in_role'] === "admin") {
+    require_once(__DIR__ . '../../partials/buttom.php');
+} else {
+    require_once(__DIR__ . '../../partials/clientButtom.php');
+}
+?>

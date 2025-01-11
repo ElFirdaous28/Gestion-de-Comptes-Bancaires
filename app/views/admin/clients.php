@@ -86,109 +86,46 @@
                             <th class="p-3">Client</th>
                             <th class="p-3">Contact</th>
                             <th class="p-3">Comptes</th>
-                            <th class="p-3">Statut</th>
-                            <th class="p-3">Dernière activité</th>
+                            <!-- <th class="p-3">Statut</th> -->
                             <th class="p-3">Actions</th>
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-gray-200">
                         <!-- Client 1 -->
-                        <tr class="hover:bg-gray-50">
-                            <td class="p-3">
-                                <div class="flex items-center">
-                                    <img
-                                        src="/api/placeholder/40/40"
-                                        alt="Thomas Robert"
-                                        class="w-10 h-10 rounded-full" />
-                                    <div class="ml-4">
-                                        <div class="text-sm font-medium text-gray-900">
-                                            Thomas Robert
-                                        </div>
-                                        <div class="text-sm text-gray-500">ID: #45789</div>
+                        <?php foreach ($users as $user): ?>
+                            <tr class="hover:bg-gray-50">
+                                <td class="p-3">
+                                    <div class="full_name text-sm font-medium text-gray-900">
+                                        <?= htmlspecialchars($user["full_name"]); ?>
                                     </div>
-                                </div>
-                            </td>
-                            <td class="p-3">
-                                <div class="text-sm text-gray-900">thomas@email.com</div>
-                                <div class="text-sm text-gray-500">06 12 34 56 78</div>
-                            </td>
-                            <td class="p-3">
-                                <div class="text-sm text-gray-900">2 comptes</div>
-                                <div class="text-sm text-gray-500">Courant, Épargne</div>
-                            </td>
-                            <td class="p-3">
-                                <span
-                                    class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                                    Actif
-                                </span>
-                            </td>
-                            <td class="p-3">
-                                <div class="text-sm text-gray-900">Il y a 2 heures</div>
-                                <div class="text-sm text-gray-500">Virement sortant</div>
-                            </td>
-                            <td class="p-3">
-                                <div class="flex space-x-2">
-                                    <button class="text-blue-600 hover:text-blue-900">
-                                        <i data-lucide="eye" class="w-5 h-5"></i>
-                                    </button>
-                                    <button class="text-gray-600 hover:text-gray-900">
-                                        <i data-lucide="edit" class="w-5 h-5"></i>
-                                    </button>
-                                    <button class="text-red-600 hover:text-red-900">
-                                        <i data-lucide="lock" class="w-5 h-5"></i>
-                                    </button>
-                                </div>
-                            </td>
-                        </tr>
+                                    <div class="text-sm text-gray-500">ID: #45789</div>
+                                </td>
+                                <td class="p-3">
+                                    <div class="email text-sm text-gray-900"><?= htmlspecialchars($user['email']) ?></div>
+                                </td>
+                                <td class="p-3">
+                                    <div class="text-sm text-gray-900"><?= $user['accounts_number'] ?>comptes</div>
+                                </td>
+                                <td class="p-3">
+                                    <div class="flex space-x-2">
+                                        <form method="POST" action="/admin/deleteUser" style="display:inline;" onsubmit="return confirm('Vous êtes sûr, vous voulez supprimer cet utilisateur ?');">
+                                            <input type="hidden" name="user_id" value="<?= $user['user_id'] ?>">
+                                            <button class="text-gray-600 hover:text-blue-900" name="delete_user" >
+                                                <i data-lucide="trash-2" class="w-5 h-5"></i>
+                                            </button>
+                                        </form>
+                                        <button onclick="toggleAddClientModal(event)" id="edit_btn" data-role="<?= $user['role'] ?>" class="edit_user text-gray-600 hover:text-gray-900"
+                                            data-user-id="<?= $user['user_id'] ?>" class="edit_user text-gray-600 hover:text-gray-900">
+                                            <i data-lucide="edit" class="w-5 h-5"></i>
+                                        </button>
+                                        <button class="text-gray-600 hover:text-red-900">
+                                            <i data-lucide="lock" class="w-5 h-5"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
 
-                        <!-- Client 2 -->
-                        <tr class="hover:bg-gray-50">
-                            <td class="p-3">
-                                <div class="flex items-center">
-                                    <img
-                                        src="/api/placeholder/40/40"
-                                        alt="Marie Dubois"
-                                        class="w-10 h-10 rounded-full" />
-                                    <div class="ml-4">
-                                        <div class="text-sm font-medium text-gray-900">
-                                            Marie Dubois
-                                        </div>
-                                        <div class="text-sm text-gray-500">ID: #45790</div>
-                                    </div>
-                                </div>
-                            </td>
-                            <td class="p-3">
-                                <div class="text-sm text-gray-900">marie@email.com</div>
-                                <div class="text-sm text-gray-500">06 98 76 54 32</div>
-                            </td>
-                            <td class="p-3">
-                                <div class="text-sm text-gray-900">1 compte</div>
-                                <div class="text-sm text-gray-500">Courant</div>
-                            </td>
-                            <td class="p-3">
-                                <span
-                                    class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">
-                                    En attente
-                                </span>
-                            </td>
-                            <td class="p-3">
-                                <div class="text-sm text-gray-900">Hier</div>
-                                <div class="text-sm text-gray-500">Création compte</div>
-                            </td>
-                            <td class="p-3">
-                                <div class="flex space-x-2">
-                                    <button class="text-blue-600 hover:text-blue-900">
-                                        <i data-lucide="eye" class="w-5 h-5"></i>
-                                    </button>
-                                    <button class="text-gray-600 hover:text-gray-900">
-                                        <i data-lucide="edit" class="w-5 h-5"></i>
-                                    </button>
-                                    <button class="text-green-600 hover:text-green-900">
-                                        <i data-lucide="check-circle" class="w-5 h-5"></i>
-                                    </button>
-                                </div>
-                            </td>
-                        </tr>
+                        <?php endforeach ?>
                     </tbody>
                 </table>
 
@@ -205,7 +142,7 @@
                                     Ajouter un nouveau client
                                 </h3>
                                 <button
-                                    onclick="toggleAddClientModal()"
+                                    onclick="toggleAddClientModal(event)"
                                     class="text-gray-400 hover:text-gray-500">
                                     <i data-lucide="x" class="w-6 h-6"></i>
                                 </button>
@@ -213,191 +150,56 @@
 
                             <!-- Modal Body -->
                             <div class="p-6">
-                                <form id="addClientForm" class="space-y-6">
+                                <form id="addClientForm" class="space-y-6" action="/admin/addUser" method="POST">
                                     <!-- Informations personnelles -->
                                     <div>
-                                        <h4 class="text-base font-medium text-gray-900 mb-4">
-                                            Informations personnelles
-                                        </h4>
-                                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                            <div>
-                                                <label
-                                                    class="block text-sm font-medium text-gray-700 mb-1">Civilité
-                                                    *</label>
-                                                <select
-                                                    required
-                                                    class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
-                                                    <option value>Sélectionner</option>
-                                                    <option value="mr">M.</option>
-                                                    <option value="mme">Mme</option>
-                                                </select>
-                                            </div>
 
-                                            <div>
-                                                <label
-                                                    class="block text-sm font-medium text-gray-700 mb-1">Numéro
-                                                    client</label>
-                                                <input
-                                                    type="text"
-                                                    readonly
-                                                    value="CLT-2024-0001"
-                                                    class="w-full px-3 py-2 border border-gray-300 rounded-md bg-gray-50" />
-                                            </div>
+                                        <div class="md:col-span-2">
+                                            <label
+                                                class="block text-sm font-medium text-gray-700 mb-1">Nom et prénom
+                                                *</label>
+                                            <input
+                                                type="text" name="fullname" id="full_name"
+                                                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                                        </div>
 
-                                            <div>
-                                                <label
-                                                    class="block text-sm font-medium text-gray-700 mb-1">Nom
-                                                    *</label>
-                                                <input
-                                                    type="text"
-                                                    required
-                                                    class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" />
-                                            </div>
+                                        <div class="md:col-span-2">
+                                            <label
+                                                class="block text-sm font-medium text-gray-700 mb-1">Email
+                                                *</label>
+                                            <input
+                                                type="email" name="email" id="email"
+                                                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                                            <input type="hidden" name="user_id" id="user_id_input">
+                                        </div>
 
-                                            <div>
-                                                <label
-                                                    class="block text-sm font-medium text-gray-700 mb-1">Prénom
-                                                    *</label>
-                                                <input
-                                                    type="text"
-                                                    required
-                                                    class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" />
-                                            </div>
-
-                                            <div>
-                                                <label
-                                                    class="block text-sm font-medium text-gray-700 mb-1">Date
-                                                    de naissance *</label>
-                                                <input
-                                                    type="date"
-                                                    required
-                                                    class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" />
-                                            </div>
-
-                                            <div>
-                                                <label
-                                                    class="block text-sm font-medium text-gray-700 mb-1">Nationalité
-                                                    *</label>
-                                                <select
-                                                    required
-                                                    class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
-                                                    <option value>Sélectionner</option>
-                                                    <option value="fr">Française</option>
-                                                    <option value="other">Autre</option>
-                                                </select>
-                                            </div>
+                                        <div class="md:col-span-2">
+                                            <label
+                                                class="block text-sm font-medium text-gray-700 mb-1">Role
+                                                *</label>
+                                            <select required id="role" name="client_role" class="role w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                                <option value="">Sélectionner</option>
+                                                <option value="admin">Admin</option>
+                                                <option value="client">Client</option>
+                                            </select>
                                         </div>
                                     </div>
 
-                                    <!-- Coordonnées -->
-                                    <div>
-                                        <h4 class="text-base font-medium text-gray-900 mb-4">
-                                            Coordonnées
-                                        </h4>
-                                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                            <div>
-                                                <label
-                                                    class="block text-sm font-medium text-gray-700 mb-1">Email
-                                                    *</label>
-                                                <input
-                                                    type="email"
-                                                    required
-                                                    class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" />
-                                            </div>
-
-                                            <div>
-                                                <label
-                                                    class="block text-sm font-medium text-gray-700 mb-1">Téléphone
-                                                    *</label>
-                                                <input
-                                                    type="tel"
-                                                    required
-                                                    pattern="[0-9]{10}"
-                                                    class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" />
-                                            </div>
-
-                                            <div class="md:col-span-2">
-                                                <label
-                                                    class="block text-sm font-medium text-gray-700 mb-1">Adresse
-                                                    *</label>
-                                                <input
-                                                    type="text"
-                                                    required
-                                                    class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" />
-                                            </div>
-
-                                            <div>
-                                                <label
-                                                    class="block text-sm font-medium text-gray-700 mb-1">Code
-                                                    postal *</label>
-                                                <input
-                                                    type="text"
-                                                    required
-                                                    pattern="[0-9]{5}"
-                                                    class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" />
-                                            </div>
-
-                                            <div>
-                                                <label
-                                                    class="block text-sm font-medium text-gray-700 mb-1">Ville
-                                                    *</label>
-                                                <input
-                                                    type="text"
-                                                    required
-                                                    class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" />
-                                            </div>
-                                        </div>
+                                    <div
+                                        class="flex justify-end space-x-3 p-6 border-t bg-gray-50">
+                                        <button
+                                            onclick="toggleAddClientModal(event)"
+                                            class="px-4 py-2 border border-gray-300 rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-gray-500">
+                                            Annuler
+                                        </button>
+                                        <button
+                                            onclick="submitAddClientForm()" name="addUser" id="add_user_btn"
+                                            class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                            Créer le compte
+                                        </button>
                                     </div>
 
-                                    <!-- Type de compte -->
-                                    <div>
-                                        <h4 class="text-base font-medium text-gray-900 mb-4">
-                                            Configuration du compte
-                                        </h4>
-                                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                            <div>
-                                                <label
-                                                    class="block text-sm font-medium text-gray-700 mb-1">Type
-                                                    de compte *</label>
-                                                <select
-                                                    required
-                                                    class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
-                                                    <option value>Sélectionner</option>
-                                                    <option value="courant">Compte Courant</option>
-                                                    <option value="epargne">Compte Épargne</option>
-                                                    <option value="both">Les deux</option>
-                                                </select>
-                                            </div>
-
-                                            <div>
-                                                <label
-                                                    class="block text-sm font-medium text-gray-700 mb-1">Conseiller
-                                                    assigné</label>
-                                                <select
-                                                    class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
-                                                    <option value>Sélectionner</option>
-                                                    <option value="1">Marc Dubois</option>
-                                                    <option value="2">Sophie Martin</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
                                 </form>
-                            </div>
-
-                            <!-- Modal Footer -->
-                            <div
-                                class="flex justify-end space-x-3 p-6 border-t bg-gray-50">
-                                <button
-                                    onclick="toggleAddClientModal()"
-                                    class="px-4 py-2 border border-gray-300 rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-gray-500">
-                                    Annuler
-                                </button>
-                                <button
-                                    onclick="submitAddClientForm()"
-                                    class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
-                                    Créer le compte
-                                </button>
                             </div>
                         </div>
                     </div>
@@ -436,4 +238,6 @@
     </div>
 </div>
 <script src="/assets/js/clientPopUp.js"></script>
-<?php require_once(__DIR__ . '../../partials/buttom.php'); ?>
+<?php
+require_once(__DIR__ . '../../partials/buttom.php');
+?>

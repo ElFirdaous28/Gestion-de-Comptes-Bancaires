@@ -1,3 +1,4 @@
+
 <!-- Modal Ajout/Modification Compte -->
 <div id="accountActionsModal"
     class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full hidden z-50">
@@ -14,19 +15,18 @@
 
             <!-- Modal Body -->
             <div class="p-6">
-                <form id="accountForm" class="space-y-6">
+                <form id="accountForm" class="space-y-6" action="/admin/addAcount" method="POST">
                     <!-- Sélection du client -->
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-1">Client
                             titulaire *</label>
-                        <select required
+                        <select required name="user_id"
                             class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
                             <option value>Sélectionner un
                                 client</option>
-                            <option value="1">Thomas Robert -
-                                #CLT001</option>
-                            <option value="2">Marie Dubois -
-                                #CLT002</option>
+                            <?php foreach ($users as $user): ?>
+                                <option value="<?= htmlspecialchars($user["user_id"]); ?>"><?= htmlspecialchars($user["full_name"]); ?></option>
+                            <?php endforeach ?>
                         </select>
                     </div>
 
@@ -35,7 +35,7 @@
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-1">Type
                                 de compte *</label>
-                            <select required
+                            <select required name="type_compte"
                                 class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                                 onchange="toggleSavingsFields(this.value)">
                                 <option value>Sélectionner</option>
@@ -46,16 +46,16 @@
                             </select>
                         </div>
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1">Agence
-                                *</label>
-                            <select required
-                                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
-                                <option value>Sélectionner</option>
-                                <option value="1">Paris Centre
-                                    (#001)</option>
-                                <option value="2">Lyon Centre
-                                    (#002)</option>
-                            </select>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Balance *</label>
+                            <div class="relative">
+                                <div
+                                    class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                    <span class="text-gray-500">€</span>
+                                </div>
+                                <input type="number" required min="0" name="balance_input"
+                                    class="w-full pl-8 pr-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                    placeholder="1000">
+                            </div>
                         </div>
                     </div>
 
@@ -73,7 +73,7 @@
                                         class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                                         <span class="text-gray-500">€</span>
                                     </div>
-                                    <input type="number" required min="0"
+                                    <input type="number" required min="0" name="plafond_input"
                                         class="w-full pl-8 pr-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                                         placeholder="1000">
                                 </div>
@@ -87,7 +87,7 @@
                                         class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                                         <span class="text-gray-500">€</span>
                                     </div>
-                                    <input type="number" min="0"
+                                    <input type="number" min="0" name="decouvert_input"
                                         class="w-full pl-8 pr-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                                         placeholder="500">
                                 </div>
@@ -135,20 +135,21 @@
                             </label>
                         </div>
                     </div>
+
+                    <div class="flex justify-end space-x-3 p-6 border-t bg-gray-50">
+                        <button onclick="toggleAccountActionsModal()"
+                            class="px-4 py-2 border border-gray-300 rounded-md text-gray-700 bg-white hover:bg-gray-50">
+                            Annuler
+                        </button>
+
+                        <button onclick="submitAccountForm()" name="add_acount"
+                            class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700">
+                            Créer le compte
+                        </button>
+                    </div>
                 </form>
             </div>
 
-            <!-- Modal Footer -->
-            <div class="flex justify-end space-x-3 p-6 border-t bg-gray-50">
-                <button onclick="toggleAccountActionsModal()"
-                    class="px-4 py-2 border border-gray-300 rounded-md text-gray-700 bg-white hover:bg-gray-50">
-                    Annuler
-                </button>
-                <button onclick="submitAccountForm()"
-                    class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700">
-                    Créer le compte
-                </button>
-            </div>
         </div>
     </div>
 </div>
