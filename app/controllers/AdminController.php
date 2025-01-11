@@ -15,8 +15,8 @@ class AdminController extends BaseController
 
     public function adminDashboard()
     {
-
-        $this->render('admin/dashboard');
+        $user = $this->UserModel->getUserById($_SESSION['user_loged_in_id']);
+        $this->render('admin/dashboard',["user"=>$user]);
     }
 
     public function generatePassword($length) {
@@ -42,7 +42,10 @@ class AdminController extends BaseController
     public function clientsPage()
     {
         $users = $this->UserModel->showUsers();
-        $this->render('admin/clients',["users"=>$users]);
+        $user = $this->UserModel->getUserById($_SESSION['user_loged_in_id']);
+
+        $this->render('admin/clients',["users"=>$users , "user"=>$user]);
+
     }
 
     public function updateUser(){
@@ -53,6 +56,7 @@ class AdminController extends BaseController
             $role = $_POST['client_role'];
 
             $this->UserModel->updateUser($fullname,$email,$role,$user_id);
+
             header('location:/admin/clients');
         }
     }
@@ -71,7 +75,8 @@ class AdminController extends BaseController
     {
         $users = $this->UserModel->showUsers();
         $accounts = $this->AccountModel->getAccounts();
-        $this->render('admin/comptes',["users"=>$users,"accounts"=>$accounts]);
+        $user = $this->UserModel->getUserById($_SESSION['user_loged_in_id']);
+        $this->render('admin/comptes',["users"=>$users,"accounts"=>$accounts,"user"=>$user]);
     }
 
     public function addAcount(){
@@ -113,7 +118,7 @@ class AdminController extends BaseController
     // transactions page
     public function transactionsPage()
     {
-
-        $this->render('admin/transactions');
+        $user = $this->UserModel->getUserById($_SESSION['user_loged_in_id']);
+        $this->render('admin/transactions', ["user"=>$user]);
     }
 }
