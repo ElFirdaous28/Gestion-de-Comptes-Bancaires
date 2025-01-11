@@ -1,5 +1,7 @@
 <?php
 require_once(__DIR__ . '/../includes/autoloading.php');
+require_once __DIR__ . '/../../vendor/autoload.php';
+
 // require_once(__DIR__ . '/../models/User.php');
 // require_once(__DIR__ . '/../models/Account.php');
 // require_once(__DIR__ . '/../models/Depot.php');
@@ -171,8 +173,9 @@ class ClientController extends BaseController
         $motif = $_GET["motif"];
         $amountMax = $_GET["amountMax"];
         $amountMin = $_GET["amountMin"];
+        $user_id= $_SESSION["user_loged_in_id"];
 
-        $transactions = $this->DepotModel->getTransactions($accountType, $transactionType, $motif, $amountMin, $amountMax);
+        $transactions = $this->DepotModel->getClientTransactions($user_id,$accountType, $transactionType, $motif, $amountMin, $amountMax);
         $transactionsList = $this->renderTransactions($transactions);
         echo $transactionsList;
     }
@@ -235,4 +238,84 @@ class ClientController extends BaseController
 
         $this->render('client/profil');
     }
+
+    // releve du compte
+    public function releveDuCompte($account_id)
+{
+    // Retrieve account data using the account ID
+    $account = $this->AccountModel->getAccount($account_id);
+    $transactions = $this->DepotModel->getAccountTransactions($_SESSION["user_loged_in_id"], $account_id);
+
+    // Check if account exists
+    if ($account) {
+        // Start output buffering to prevent any prior output
+        ob_start();
+
+        // Create new PDF document
+        $pdf = new TCPDF();
+
+        // Set document information
+        $pdf->SetCreator(PDF_CREATOR);
+        $pdf->SetAuthor('Bank Name');
+        $pdf->SetTitle('Relevé du Compte');
+
+        // Set font
+        $pdf->SetFont('helvetica', '', 12);
+
+        // Add a page
+        $pdf->AddPage();
+
+        // Build the HTML content as a string
+        $html = '<div style="max-width: 800px; margin: auto; padding: 20px;">';
+        $html .= '<h1 style="font-size: 24px; font-weight: bold; margin-bottom: 20px;">Relevé du Compte</h1>';
+
+        // Add account info to the page
+        $html .= '<div style="margin-bottom: 20px;">';
+        $html .= '<p><strong>Full Name:</strong> ' . htmlspecialchars($account['full_name']) . '</p>';
+        $html .= '<p><strong>Account Type:</strong> ' . htmlspecialchars($account['account_type']) . '</p>';
+        $html .= '<p><strong>Balance:</strong> ' . htmlspecialchars($account['balance']) . '</p>';
+        $html .= '</div>';
+
+        // Add table for transactions
+        $html .= '<h2 style="font-size: 20px; font-weight: bold; margin-top: 20px;">Transactions</h2>';
+        $html .= '<table border="1" cellpadding="5" cellspacing="0" style="width: 100%; border-collapse: collapse; margin-top: 20px;">';
+        $html .= '<thead>';
+        $html .= '<tr>';
+        $html .= '<th style="text-align: left;">Date</th>';
+        $html .= '<th style="text-align: left;">Motif</th>';
+        $html .= '<th style="text-align: left;">Type</th>';
+        $html .= '<th style="text-align: left;">Compte</th>';
+        $html .= '<th style="text-align: left;">Montant</th>';
+        $html .= '</tr>';
+        $html .= '</thead>';
+        $html .= '<tbody>';
+
+        // Loop through transactions and add rows to the table
+        foreach ($transactions as $transaction) {
+            $html .= '<tr>';
+            $html .= '<td>' . htmlspecialchars($transaction['created_at']) . '</td>';
+            $html .= '<td>' . htmlspecialchars($transaction['motif']) . '</td>';
+            $html .= '<td>' . htmlspecialchars($transaction['transaction_type']) . '</td>';
+            $html .= '<td>' . htmlspecialchars($transaction['account_id']) . '</td>';
+            $html .= '<td>' . htmlspecialchars($transaction['amount']) . '</td>';
+            $html .= '</tr>';
+        }
+
+        $html .= '</tbody>';
+        $html .= '</table>';
+
+        // Close the container
+        $html .= '</div>';
+
+        // Write the HTML content to the PDF
+        $pdf->writeHTML($html, true, false, true, false, '');
+
+        // Output the PDF in the browser (inline)
+        $pdf->Output('releve_du_compte.pdf', 'I');
+    } else {
+        // Handle error if account is not found
+        echo 'Account not found.';
+    }
+}
+
 }

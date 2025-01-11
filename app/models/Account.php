@@ -86,4 +86,15 @@ class Account extends DataBase
 
         $this->updateBalance($account_id, $newBalance);
     }
+
+    // methode to get account infos
+    public function getAccount($account_id)
+    {
+        $stmt = $this->conn->prepare("SELECT a.*,u.full_name FROM accounts a
+                                      JOIN users u ON a.user_id=u.user_id
+                                      WHERE account_id = ?");
+        $stmt->execute([$account_id]);
+        $account = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $account;
+    }
 }
