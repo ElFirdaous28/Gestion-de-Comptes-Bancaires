@@ -41,6 +41,7 @@
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-1">Motif *</label>
                         <input
+                        required
                             name="motif"
                             type="text"
                             class="mt-1 block w-full rounded-md border border-gray-300 p-2"
