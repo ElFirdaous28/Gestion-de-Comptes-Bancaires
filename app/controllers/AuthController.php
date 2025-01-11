@@ -49,7 +49,7 @@ class AuthController extends BaseController
             unset($_SESSION['user_loged_in_role']);
             session_destroy();
 
-            header("Location: /login");
+            header("Location:/login");
             exit;
         }
     }

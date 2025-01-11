@@ -1,6 +1,10 @@
 <?php require_once(__DIR__ . '../../partials/clinetTop.php'); ?>
 <?php require_once(__DIR__ . '../../partials/clientSideBar.php'); ?>
 
+
+<?php require_once('errorPopUp.php'); ?>
+
+
 <!-- Main Content -->
 <div class="flex-1 p-8">
     <h2 class="text-2xl font-bold text-gray-800">Mes Comptes</h2>

@@ -1,6 +1,8 @@
 <?php require_once(__DIR__ . '../../partials/clinetTop.php'); ?>
 <?php require_once(__DIR__ . '../../partials/clientSideBar.php'); ?>
 
+<?php require_once('errorPopUp.php'); ?>
+
 <!-- Main Content -->
 <div class="flex-1 p-8">
     <h2 class="text-2xl font-bold text-gray-800">Effectuer un virement</h2>
@@ -46,6 +48,7 @@
             <div>
                 <label class="block text-sm font-medium text-gray-700">Motif</label>
                 <input
+                    required
                     name="motif"
                     type="text"
                     class="mt-1 block w-full rounded-md border border-gray-300 p-2"
