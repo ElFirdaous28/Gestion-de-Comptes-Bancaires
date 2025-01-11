@@ -1,4 +1,4 @@
-<?php if (isset($_SESSION['balanceError'])): ?>
+<?php if (isset($_SESSION['transactionError'])): ?>
     <div id="errorModal"
         class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50 flex items-center justify-center">
         <div class="bg-white rounded-lg shadow-xl max-w-md w-full">
@@ -12,7 +12,7 @@
 
             <!-- Modal body -->
             <div class="p-6">
-                <p class="text-sm text-gray-700 text-center"><?= htmlspecialchars($_SESSION['balanceError']) ?></p>
+                <p class="text-sm text-gray-700 text-center"><?= htmlspecialchars($_SESSION['transactionError']) ?></p>
             </div>
 
             <!-- Modal footer -->
@@ -24,7 +24,7 @@
             </div>
         </div>
     </div>
-    <?php unset($_SESSION['balanceError']); // Remove the session variable after showing the message ?>
+    <?php unset($_SESSION['transactionError']); // Remove the session variable after showing the message ?>
 <?php endif; ?>
 
 <script>
