@@ -28,8 +28,21 @@ class Account extends DataBase
         $stmt->execute([$account_id]);
         return $stmt->fetchColumn() > 0;
     }
-    
 
+    // methode to get amount 
+    public function getStatus($account_id)
+    {
+        try {
+            $getStatusStatement = $this->conn->prepare("SELECT account_status FROM accounts WHERE account_id = ?");
+            $getStatusStatement->execute([$account_id]);
+
+            $status = $getStatusStatement->fetchColumn();;
+            return $status;
+        } catch (PDOException $e) {
+            echo "Error finding user accounts: " . $e->getMessage();
+        }
+    }
+    
     // methode to get amount 
     public function getBalance($account_id)
     {

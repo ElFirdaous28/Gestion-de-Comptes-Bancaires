@@ -44,9 +44,14 @@ class ClientController extends BaseController
             $account_id = $_POST["account_id"];
             $amount = $_POST["amount"];
             $motif = $_POST["motif"];
-            $transactionInfo = ["account_id" => $account_id, "amount" => $amount, "motif" => $motif];
-            $this->DepotModel->addTransaction($transactionInfo);
-            $this->AccountModel->addBalance($account_id, $amount);
+
+            if ($this->AccountModel->getStatus($account_id) !== "active")
+                $_SESSION['transactionError'] = "This account is blocked. You can not make this transaction!";
+            else {
+                $transactionInfo = ["account_id" => $account_id, "amount" => $amount, "motif" => $motif];
+                $this->DepotModel->addTransaction($transactionInfo);
+                $this->AccountModel->addBalance($account_id, $amount);
+            }
             header("Location: /client/comptes");
         }
     }
@@ -58,11 +63,11 @@ class ClientController extends BaseController
             $amount = $_POST["amount"];
             $motif = $_POST["motif"];
             $transactionInfo = ["account_id" => $account_id, "amount" => $amount, "motif" => $motif];
-            if ($this->AccountModel->getBalance($account_id) > $amount) {
+            if ($this->AccountModel->getBalance($account_id) >= $amount) {
                 $this->RetraitModel->addTransaction($transactionInfo);
                 $this->AccountModel->reduceBalance($account_id, $amount);
             } else {
-                $_SESSION['balanceError'] = "No enough balance!";
+                $_SESSION['transactionError'] = "No enough balance!";
             }
             header("Location: /client/comptes");
         }
@@ -85,21 +90,23 @@ class ClientController extends BaseController
             $beneficiary_account_id = $_POST["beneficiary_account_id"];
             $motif = $_POST["motif"];
 
-            if ($this->AccountModel->getBalance($account_id) > $amount) {
+            if ($this->AccountModel->getBalance($account_id) >= $amount && $this->AccountModel->getStatus($account_id) === "active") {
                 $transactionInfo = ["account_id" => $account_id, "amount" => $amount, "beneficiary_account_id" => $beneficiary_account_id, "motif" => $motif];
                 $this->VirmentModel->addTransaction($transactionInfo);
                 // add balance to benefu=iciary
                 $this->AccountModel->addBalance($beneficiary_account_id, $amount);
                 // reduce balance for current user
                 $this->AccountModel->reduceBalance($account_id, $amount);
-            }
-            else{
-                $_SESSION['balanceError'] = "No enough balance!";
-            }
+            } else if ($this->AccountModel->getBalance($account_id) < $amount)
+                $_SESSION['transactionError'] = "No enough balance!";
+            else if ($this->AccountModel->getStatus($account_id) !== "active")
+                $_SESSION['transactionError'] = "This account is blocked. You can not make this transaction!";
+
 
             header("Location: /client/virement");
         }
     }
+
 
     // benificier page
     public function benificiers()
