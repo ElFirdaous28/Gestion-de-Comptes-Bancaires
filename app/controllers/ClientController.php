@@ -16,6 +16,7 @@ class ClientController extends BaseController
     private $RetraitModel;
     private $VirmentModel;
     private $BeneficiaryModel;
+    private $UserModel;
     public function __construct()
     {
 
@@ -24,6 +25,7 @@ class ClientController extends BaseController
         $this->RetraitModel = new Retrait();
         $this->VirmentModel = new Virement();
         $this->BeneficiaryModel = new Beneficiary();
+        $this->UserModel = new User();
     }
     // client dashboard
     public function clientDashboard()
@@ -173,9 +175,9 @@ class ClientController extends BaseController
         $motif = $_GET["motif"];
         $amountMax = $_GET["amountMax"];
         $amountMin = $_GET["amountMin"];
-        $user_id= $_SESSION["user_loged_in_id"];
+        $user_id = $_SESSION["user_loged_in_id"];
 
-        $transactions = $this->DepotModel->getClientTransactions($user_id,$accountType, $transactionType, $motif, $amountMin, $amountMax);
+        $transactions = $this->DepotModel->getClientTransactions($user_id, $accountType, $transactionType, $motif, $amountMin, $amountMax);
         $transactionsList = $this->renderTransactions($transactions);
         echo $transactionsList;
     }
@@ -235,87 +237,109 @@ class ClientController extends BaseController
     // profil page
     public function profil()
     {
-
-        $this->render('client/profil');
+        $user = $this->UserModel->getUserById($_SESSION['user_loged_in_id']);
+        $this->render('client/profil', ["user" => $user]);
     }
 
     // releve du compte
     public function releveDuCompte($account_id)
-{
-    // Retrieve account data using the account ID
-    $account = $this->AccountModel->getAccount($account_id);
-    $transactions = $this->DepotModel->getAccountTransactions($_SESSION["user_loged_in_id"], $account_id);
+    {
+        // Retrieve account data using the account ID
+        $account = $this->AccountModel->getAccount($account_id);
+        $transactions = $this->DepotModel->getAccountTransactions($_SESSION["user_loged_in_id"], $account_id);
 
-    // Check if account exists
-    if ($account) {
-        // Start output buffering to prevent any prior output
-        ob_start();
+        // Check if account exists
+        if ($account) {
+            // Start output buffering to prevent any prior output
+            ob_start();
 
-        // Create new PDF document
-        $pdf = new TCPDF();
+            // Create new PDF document
+            $pdf = new TCPDF();
 
-        // Set document information
-        $pdf->SetCreator(PDF_CREATOR);
-        $pdf->SetAuthor('Bank Name');
-        $pdf->SetTitle('Relevé du Compte');
+            // Set document information
+            $pdf->SetCreator(PDF_CREATOR);
+            $pdf->SetAuthor('Bank Name');
+            $pdf->SetTitle('Relevé du Compte');
 
-        // Set font
-        $pdf->SetFont('helvetica', '', 12);
+            // Set font
+            $pdf->SetFont('helvetica', '', 12);
 
-        // Add a page
-        $pdf->AddPage();
+            // Add a page
+            $pdf->AddPage();
 
-        // Build the HTML content as a string
-        $html = '<div style="max-width: 800px; margin: auto; padding: 20px;">';
-        $html .= '<h1 style="font-size: 24px; font-weight: bold; margin-bottom: 20px;">Relevé du Compte</h1>';
+            // Build the HTML content as a string
+            $html = '<div style="max-width: 800px; margin: auto; padding: 20px;">';
+            $html .= '<h1 style="font-size: 24px; font-weight: bold; margin-bottom: 20px;">Relevé du Compte</h1>';
 
-        // Add account info to the page
-        $html .= '<div style="margin-bottom: 20px;">';
-        $html .= '<p><strong>Full Name:</strong> ' . htmlspecialchars($account['full_name']) . '</p>';
-        $html .= '<p><strong>Account Type:</strong> ' . htmlspecialchars($account['account_type']) . '</p>';
-        $html .= '<p><strong>Balance:</strong> ' . htmlspecialchars($account['balance']) . '</p>';
-        $html .= '</div>';
+            // Add account info to the page
+            $html .= '<div style="margin-bottom: 20px;">';
+            $html .= '<p><strong>Full Name:</strong> ' . htmlspecialchars($account['full_name']) . '</p>';
+            $html .= '<p><strong>Account Type:</strong> ' . htmlspecialchars($account['account_type']) . '</p>';
+            $html .= '<p><strong>Balance:</strong> ' . htmlspecialchars($account['balance']) . '</p>';
+            $html .= '</div>';
 
-        // Add table for transactions
-        $html .= '<h2 style="font-size: 20px; font-weight: bold; margin-top: 20px;">Transactions</h2>';
-        $html .= '<table border="1" cellpadding="5" cellspacing="0" style="width: 100%; border-collapse: collapse; margin-top: 20px;">';
-        $html .= '<thead>';
-        $html .= '<tr>';
-        $html .= '<th style="text-align: left;">Date</th>';
-        $html .= '<th style="text-align: left;">Motif</th>';
-        $html .= '<th style="text-align: left;">Type</th>';
-        $html .= '<th style="text-align: left;">Compte</th>';
-        $html .= '<th style="text-align: left;">Montant</th>';
-        $html .= '</tr>';
-        $html .= '</thead>';
-        $html .= '<tbody>';
-
-        // Loop through transactions and add rows to the table
-        foreach ($transactions as $transaction) {
+            // Add table for transactions
+            $html .= '<h2 style="font-size: 20px; font-weight: bold; margin-top: 20px;">Transactions</h2>';
+            $html .= '<table border="1" cellpadding="5" cellspacing="0" style="width: 100%; border-collapse: collapse; margin-top: 20px;">';
+            $html .= '<thead>';
             $html .= '<tr>';
-            $html .= '<td>' . htmlspecialchars($transaction['created_at']) . '</td>';
-            $html .= '<td>' . htmlspecialchars($transaction['motif']) . '</td>';
-            $html .= '<td>' . htmlspecialchars($transaction['transaction_type']) . '</td>';
-            $html .= '<td>' . htmlspecialchars($transaction['account_id']) . '</td>';
-            $html .= '<td>' . htmlspecialchars($transaction['amount']) . '</td>';
+            $html .= '<th style="text-align: left;">Date</th>';
+            $html .= '<th style="text-align: left;">Motif</th>';
+            $html .= '<th style="text-align: left;">Type</th>';
+            $html .= '<th style="text-align: left;">Compte</th>';
+            $html .= '<th style="text-align: left;">Montant</th>';
             $html .= '</tr>';
+            $html .= '</thead>';
+            $html .= '<tbody>';
+
+            // Loop through transactions and add rows to the table
+            foreach ($transactions as $transaction) {
+                $html .= '<tr>';
+                $html .= '<td>' . htmlspecialchars($transaction['created_at']) . '</td>';
+                $html .= '<td>' . htmlspecialchars($transaction['motif']) . '</td>';
+                $html .= '<td>' . htmlspecialchars($transaction['transaction_type']) . '</td>';
+                $html .= '<td>' . htmlspecialchars($transaction['account_id']) . '</td>';
+                $html .= '<td>' . htmlspecialchars($transaction['amount']) . '</td>';
+                $html .= '</tr>';
+            }
+
+            $html .= '</tbody>';
+            $html .= '</table>';
+
+            // Close the container
+            $html .= '</div>';
+
+            // Write the HTML content to the PDF
+            $pdf->writeHTML($html, true, false, true, false, '');
+
+            // Output the PDF in the browser (inline)
+            $pdf->Output('releve_du_compte.pdf', 'I');
+        } else {
+            // Handle error if account is not found
+            echo 'Account not found.';
         }
-
-        $html .= '</tbody>';
-        $html .= '</table>';
-
-        // Close the container
-        $html .= '</div>';
-
-        // Write the HTML content to the PDF
-        $pdf->writeHTML($html, true, false, true, false, '');
-
-        // Output the PDF in the browser (inline)
-        $pdf->Output('releve_du_compte.pdf', 'I');
-    } else {
-        // Handle error if account is not found
-        echo 'Account not found.';
     }
-}
 
+    public function updateUserInfo()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_information'])) {
+            $user_id = $_SESSION["user_loged_in_id"];
+            $fullname = $_POST['full_name_input'];
+            $email = $_POST['email_input'];
+            $this->UserModel->updateUserInformations($fullname, $email, $user_id);
+
+            header('Location:/admin/profil');
+        }
+    }
+
+    public function deleteAccountUser()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_account_user'])) {
+            $user_id = $_SESSION["user_loged_in_id"];
+            echo "<script>alert('test pass');</script>";
+
+            $this->UserModel->deleteAccountUser($user_id);
+            header('Location:/login');
+        }
+    }
 }

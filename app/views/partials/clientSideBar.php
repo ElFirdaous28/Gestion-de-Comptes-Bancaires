@@ -38,9 +38,9 @@
                 <img src="/api/placeholder/32/32" alt="Admin"
                     class="w-8 h-8 rounded-full">
                 <div class="ml-3 flex-grow">
-                    <p class="text-sm font-medium">Admin</p>
+                    <p class="text-sm font-medium"><?= htmlspecialchars($user["full_name"])?></p>
                     <p
-                        class="text-xs">admin@banque.fr</p>
+                        class="text-xs"><?= htmlspecialchars($user["email"])?></p>
                 </div>
                 <i data-lucide="chevron-up"
                     class="w-5 h-5 transform transition-transform duration-200"
@@ -50,7 +50,7 @@
             <!-- Menu Profil -->
             <div id="profileMenu"
                 class="absolute bottom-full left-0 w-full mb-2 bg-gray-50 rounded-lg shadow-lg hidden">
-                <a href="#"
+                <a href="/admin/profil"
                     class="block px-4 py-2 text-sm text-gray-600 hover:bg-blue-600 rounded-t-lg">
                     <i data-lucide="user"
                         class="w-4 h-4 inline-block mr-2"></i>
