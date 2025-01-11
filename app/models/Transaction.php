@@ -7,14 +7,14 @@ abstract class Transaction extends DataBase
         parent::__construct();
     }
 
-    public function getTransactions($accountType, $transactionType, $motif, $amountMin,$amountMax)
+    public function getClientTransactions($user_id, $accountType, $transactionType, $motif, $amountMin, $amountMax)
     {
         try {
             $query = "SELECT t.*,a.account_type,b.beneficiary_name FROM transactions t
                      JOIN accounts a ON a.account_id=t.account_id
                      LEFT JOIN beneficiaries b ON b.beneficiary_account_id=t.beneficiary_account_id
-                     WHERE 1=1 ";
-            $params = [];
+                     WHERE a.user_id=? ";
+            $params = [$user_id];
             // filter by account type query
             if (!empty($accountType)) {
                 $query .= "AND a.account_type=?";
@@ -47,6 +47,23 @@ abstract class Transaction extends DataBase
 
             $stmt = $this->conn->prepare($query);
             $stmt->execute($params);
+            $transactions = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+            return $transactions;
+        } catch (PDOException $e) {
+            error_log("error getting transactions " . $e);
+        }
+    }
+
+    // methode to get account transactions 
+    public function getAccountTransactions($user_id, $account_id)
+    {
+        try {
+            $stmt = $this->conn->prepare("SELECT t.*,a.account_type,b.beneficiary_name FROM transactions t
+                                          JOIN accounts a ON a.account_id=t.account_id
+                                          LEFT JOIN beneficiaries b ON b.beneficiary_account_id=t.beneficiary_account_id
+                                          WHERE a.user_id=? ");
+            $stmt->execute([$user_id]);
             $transactions = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
             return $transactions;
