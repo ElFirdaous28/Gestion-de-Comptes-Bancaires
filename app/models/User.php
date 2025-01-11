@@ -88,4 +88,13 @@ class User extends DataBase
             echo "Error in get user by id: " . $e->getMessage();
         }
     }
+
+    public function deleteAccountUser($user_id){
+        try{
+            $stmt = $this->conn->prepare("DELETE FROM users WHERE user_id = ?");
+            $stmt->execute([$user_id]);
+        } catch (PDOException $e){
+            echo "Error in delete accout user: " . $e->getMessage();
+        }
+    }
 }

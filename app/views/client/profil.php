@@ -40,17 +40,17 @@ if ($_SESSION['user_loged_in_role'] === "admin") {
                         </div>
 
                         <div>
-                            <label class="block text-sm font-medium text-gray-700">nom complet</label>
+                            <label class="block text-sm font-medium text-gray-700">Nom Complet</label>
                             <input type="text" name="full_name_input"
                                 class="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2"
-                                value="<?= htmlspecialchars($user["full_name"]); ?> "/>
+                                value="<?= htmlspecialchars($user["full_name"]); ?> " />
                         </div>
 
                         <div>
                             <label class="block text-sm font-medium text-gray-700">Email</label>
                             <input type="email" name="email_input"
                                 class="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2"
-                                value="<?= htmlspecialchars($user['email']) ?>"/>
+                                value="<?= htmlspecialchars($user['email']) ?>" />
                         </div>
 
                         <div class="flex justify-end pt-4">
@@ -142,15 +142,17 @@ if ($_SESSION['user_loged_in_role'] === "admin") {
                         </div>
                     </div>
 
-                    <div class="mt-6 pt-6 border-t">
-                        <button type="button" class="flex items-center text-red-600 hover:text-red-800">
-                            <i data-lucide="trash-2" class="w-4 h-4 mr-2"></i>
-                            Supprimer mon compte
-                        </button>
-                    </div>
+                    <form action="/client/deleteAccountUser" method="POST">
+                        <div class="mt-6 pt-6 border-t">
+                            <button class="flex items-center text-red-600 hover:text-red-800" name="delete_account_user">
+                                <i data-lucide="trash-2" class="w-4 h-4 mr-2"></i>
+                                Supprimer mon compte
+                            </button>
+                        </div>
+                    </form>
                 </div>
             </div>
-        </div>
+        </div> 
     </div>
 </div>
 

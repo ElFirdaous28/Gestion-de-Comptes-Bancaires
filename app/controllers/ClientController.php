@@ -25,14 +25,16 @@ class ClientController extends BaseController
     public function clientDashboard()
     {
         $accounts = $this->AccountModel->clientAccounts($_SESSION['user_loged_in_id']);
-        $this->render('client/dashboard',["accounts"=>$accounts]);
+        $user = $this->UserModel->getUserById($_SESSION['user_loged_in_id']);
+        $this->render('client/dashboard',["accounts"=>$accounts,"user"=>$user]);
     }
 
     // mes comptes page
     public function mesComptes()
     {
         $accounts = $this->AccountModel->clientAccounts($_SESSION['user_loged_in_id']);
-        $this->render('client/comptes',["accounts"=>$accounts]);
+        $user = $this->UserModel->getUserById($_SESSION['user_loged_in_id']);
+        $this->render('client/comptes',["accounts"=>$accounts,"user"=>$user]);
     }
 
     // methode pour cree un depot 
@@ -63,7 +65,8 @@ class ClientController extends BaseController
     {
         $accounts = $this->AccountModel->clientAccounts($_SESSION['user_loged_in_id']);
         $beneficiaries = $this->BeneficiaryModel->getClientBeneficiaries($_SESSION["user_loged_in_id"]);
-        $this->render('client/virement',["accounts"=>$accounts,"beneficiaries"=>$beneficiaries]);
+        $user = $this->UserModel->getUserById($_SESSION['user_loged_in_id']);
+        $this->render('client/virement',["accounts"=>$accounts,"beneficiaries"=>$beneficiaries,"user"=>$user]);
     }
 
      // methode pour cree un virmentt 
@@ -88,7 +91,8 @@ class ClientController extends BaseController
     public function benificiers()
     {
         $beneficiaries = $this->BeneficiaryModel->getClientBeneficiaries($_SESSION["user_loged_in_id"]);
-        $this->render('client/benificiers',["beneficiaries"=>$beneficiaries]);
+        $user = $this->UserModel->getUserById($_SESSION['user_loged_in_id']);
+        $this->render('client/benificiers',["beneficiaries"=>$beneficiaries,"user"=>$user]);
     }
 
     // add beneficiary
@@ -133,8 +137,8 @@ class ClientController extends BaseController
     // historique page
     public function historique()
     {
-
-        $this->render('client/historique');
+        $user = $this->UserModel->getUserById($_SESSION['user_loged_in_id']);
+        $this->render('client/historique',["user"=>$user]);
     }
 
     // profil page
@@ -152,6 +156,16 @@ class ClientController extends BaseController
         $this->UserModel->updateUserInformations($fullname, $email, $user_id);
 
         header('Location:/admin/profil');
+    }
+   }
+
+   public function deleteAccountUser(){
+    if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_account_user'])){
+        $user_id = $_SESSION["user_loged_in_id"];
+        echo "<script>alert('test pass');</script>";
+
+        $this->UserModel->deleteAccountUser($user_id);
+        header('Location:/login');
     }
    }
 }

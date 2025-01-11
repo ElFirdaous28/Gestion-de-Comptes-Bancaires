@@ -24,10 +24,10 @@ Route::get('/register', [AuthController::class, 'showRegister']);
 Route::get('/login', [AuthController::class, 'showLogin']);
 Route::post('/login', [AuthController::class, 'handleLogin']);
 Route::get('/logout', [AuthController::class, 'logout']);
+Route::get('/register', [AuthController::class, 'showRegister']);
 
 
 // admin routes 
-Route::get('/register', [AuthController::class, 'showRegister']);
 Route::get('/admin/dashboard', [AdminController::class, 'adminDashboard']);
 Route::get('/admin/clients', [AdminController::class, 'clientsPage']);
 Route::get('/admin/comptes', [AdminController::class, 'comptesPage']);
@@ -59,6 +59,9 @@ Route::post('/client/benificiers/deleteBeneficiary', [ClientController::class, '
 
 Route::get('/client/historique', [ClientController::class, 'historique']);
 Route::get('/client/profil', [ClientController::class, 'profil']);
+
+Route::post('/client/deleteAccountUser', [ClientController::class, 'deleteAccountUser']);
+
 
 
 
