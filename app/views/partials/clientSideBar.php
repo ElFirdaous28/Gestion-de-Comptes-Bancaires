@@ -40,7 +40,7 @@
                 <div class="ml-3 flex-grow">
                     <p class="text-sm font-medium"><?= htmlspecialchars($_SESSION["user_loged_in_name"])?></p>
                     <p
-                        class="text-xs"><?= htmlspecialchars($_SESSION["user_loged_in_name"])?></p>
+                        class="text-xs"><?= htmlspecialchars($_SESSION["user_loged_in_email"])?></p>
                 </div>
                 <i data-lucide="chevron-up"
                     class="w-5 h-5 transform transition-transform duration-200"
