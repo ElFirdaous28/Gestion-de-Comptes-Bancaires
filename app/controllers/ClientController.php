@@ -25,16 +25,14 @@ class ClientController extends BaseController
     public function clientDashboard()
     {
         $accounts = $this->AccountModel->clientAccounts($_SESSION['user_loged_in_id']);
-        $user = $this->UserModel->getUserById($_SESSION['user_loged_in_id']);
-        $this->render('client/dashboard',["accounts"=>$accounts,"user"=>$user]);
+        $this->render('client/dashboard',["accounts"=>$accounts]);
     }
 
     // mes comptes page
     public function mesComptes()
     {
         $accounts = $this->AccountModel->clientAccounts($_SESSION['user_loged_in_id']);
-        $user = $this->UserModel->getUserById($_SESSION['user_loged_in_id']);
-        $this->render('client/comptes',["accounts"=>$accounts,"user"=>$user]);
+        $this->render('client/comptes',["accounts"=>$accounts]);
     }
 
     // methode pour cree un depot 
@@ -65,8 +63,7 @@ class ClientController extends BaseController
     {
         $accounts = $this->AccountModel->clientAccounts($_SESSION['user_loged_in_id']);
         $beneficiaries = $this->BeneficiaryModel->getClientBeneficiaries($_SESSION["user_loged_in_id"]);
-        $user = $this->UserModel->getUserById($_SESSION['user_loged_in_id']);
-        $this->render('client/virement',["accounts"=>$accounts,"beneficiaries"=>$beneficiaries,"user"=>$user]);
+        $this->render('client/virement',["accounts"=>$accounts,"beneficiaries"=>$beneficiaries]);
     }
 
      // methode pour cree un virmentt 
@@ -91,8 +88,7 @@ class ClientController extends BaseController
     public function benificiers()
     {
         $beneficiaries = $this->BeneficiaryModel->getClientBeneficiaries($_SESSION["user_loged_in_id"]);
-        $user = $this->UserModel->getUserById($_SESSION['user_loged_in_id']);
-        $this->render('client/benificiers',["beneficiaries"=>$beneficiaries,"user"=>$user]);
+        $this->render('client/benificiers',["beneficiaries"=>$beneficiaries]);
     }
 
     // add beneficiary
@@ -137,15 +133,14 @@ class ClientController extends BaseController
     // historique page
     public function historique()
     {
-        $user = $this->UserModel->getUserById($_SESSION['user_loged_in_id']);
-        $this->render('client/historique',["user"=>$user]);
+        $this->render('client/historique');
     }
 
     // profil page
     public function profil()
     {
         $user = $this->UserModel->getUserById($_SESSION['user_loged_in_id']);
-        $this->render('client/profil',["user"=>$user]);
+        $this->render('client/profil', ["user"=>$user]);
     }
 
    public function updateUserInfo(){

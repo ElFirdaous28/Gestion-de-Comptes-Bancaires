@@ -21,7 +21,7 @@ class Account extends DataBase
     {
         try {
             $getAccountQuery = $this->conn->prepare("SELECT accounts.*, users.full_name ,users.email FROM accounts
-                            LEFT JOIN users ON accounts.user_id = users.user_id;");
+                                                    LEFT JOIN users ON accounts.user_id = users.user_id;");
             $getAccountQuery->execute();
 
             $accounts = $getAccountQuery->fetchAll(PDO::FETCH_ASSOC);
@@ -47,7 +47,14 @@ class Account extends DataBase
         $stmt->execute([$account_id]);
         return $stmt->fetchColumn();
     }
-
+    
+    public function getNbrAccountActive(){
+        $stmt = $this->conn->prepare("SELECT COUNT(*) AS nbr_accounts_active FROM accounts WHERE account_status = 'active'");
+        $stmt->execute();
+        $nbrAccountActive['nbr_accounts_active'] = $stmt->fetch(PDO::FETCH_ASSOC)['nbr_accounts_active'];
+        return $nbrAccountActive;
+    }
+    
     public function changeAccountStatus($account_status, $account_id)
     {
         try {

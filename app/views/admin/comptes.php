@@ -26,14 +26,12 @@
                     <div>
                         <p class="text-sm text-gray-500">Comptes
                             Actifs</p>
-                        <p class="text-2xl font-bold text-gray-900">2,847</p>
+                        <p class="text-2xl font-bold text-gray-900"><?= htmlspecialchars($nbrAccountActive["nbr_accounts_active"]);?></p>
                     </div>
                     <div class="bg-green-100 p-3 rounded-lg">
                         <i data-lucide="check-circle" class="w-6 h-6 text-green-600"></i>
                     </div>
                 </div>
-                <p class="text-sm text-green-600 mt-2">+3.2% ce
-                    mois</p>
             </div>
         </div>
 

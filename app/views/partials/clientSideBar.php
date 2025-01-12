@@ -38,9 +38,9 @@
                 <img src="/api/placeholder/32/32" alt="Admin"
                     class="w-8 h-8 rounded-full">
                 <div class="ml-3 flex-grow">
-                    <p class="text-sm font-medium"><?= htmlspecialchars($user["full_name"])?></p>
+                    <p class="text-sm font-medium"><?=  $_SESSION['user_loged_in_nome'];?></p>
                     <p
-                        class="text-xs"><?= htmlspecialchars($user["email"])?></p>
+                        class="text-xs"><?= $_SESSION['user_loged_in_email'];?></p>
                 </div>
                 <i data-lucide="chevron-up"
                     class="w-5 h-5 transform transition-transform duration-200"

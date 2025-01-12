@@ -15,8 +15,7 @@ class AdminController extends BaseController
 
     public function adminDashboard()
     {
-        $user = $this->UserModel->getUserById($_SESSION['user_loged_in_id']);
-        $this->render('admin/dashboard',["user"=>$user]);
+        $this->render('admin/dashboard');
     }
 
     public function generatePassword($length) {
@@ -42,9 +41,8 @@ class AdminController extends BaseController
     public function clientsPage()
     {
         $users = $this->UserModel->showUsers();
-        $user = $this->UserModel->getUserById($_SESSION['user_loged_in_id']);
 
-        $this->render('admin/clients',["users"=>$users , "user"=>$user]);
+        $this->render('admin/clients',["users"=>$users]);
 
     }
 
@@ -75,8 +73,8 @@ class AdminController extends BaseController
     {
         $users = $this->UserModel->showUsers();
         $accounts = $this->AccountModel->getAccounts();
-        $user = $this->UserModel->getUserById($_SESSION['user_loged_in_id']);
-        $this->render('admin/comptes',["users"=>$users,"accounts"=>$accounts,"user"=>$user]);
+        $nbrAccountActive  = $this->AccountModel->getNbrAccountActive();
+        $this->render('admin/comptes',["users"=>$users,"accounts"=>$accounts,"nbrAccountActive"=>$nbrAccountActive]);
     }
 
     public function addAcount(){
@@ -118,7 +116,7 @@ class AdminController extends BaseController
     // transactions page
     public function transactionsPage()
     {
-        $user = $this->UserModel->getUserById($_SESSION['user_loged_in_id']);
-        $this->render('admin/transactions', ["user"=>$user]);
+        
+        $this->render('admin/transactions');
     }
 }

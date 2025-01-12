@@ -31,6 +31,7 @@ class AuthController extends BaseController
                 $_SESSION['user_loged_in_id'] = $user["user_id"];
                 $_SESSION['user_loged_in_role'] = $role;
                 $_SESSION['user_loged_in_nome'] = $user['full_name'];
+                $_SESSION['user_loged_in_email'] = $user["email"];
 
                 if ($user && $role == "admin") {
                     $this->render('admin/dashboard');
