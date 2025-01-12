@@ -100,7 +100,7 @@ class ClientController extends BaseController
                 // add balance to benefu=iciary
                 $this->AccountModel->addBalance($beneficiary_account_id, $amount);
                 // reduce balance for current user
-                $this->AccountModel->reduceBalance($account_id, $amount);
+                $this->AccountModel->reduceBalance($account_id, ($amount+2));
             } else if ($this->AccountModel->getBalance($account_id) < $amount)
                 $_SESSION['transactionError'] = "No enough balance!";
             else if ($this->AccountModel->getStatus($account_id) !== "active")
