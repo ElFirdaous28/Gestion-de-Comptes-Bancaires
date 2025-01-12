@@ -7,13 +7,17 @@
 
     <!-- Account Summary Cards -->
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
-        <?php foreach($accounts as $account):?>
-            <div class="bg-white p-6 rounded-lg shadow">
-                <h3 class="text-lg font-semibold text-gray-700 capitalize ">Compte <?= htmlspecialchars($account["account_type"])?></h3>
-                <p class="text-3xl font-bold text-gray-900 mt-2">€<?= htmlspecialchars($account["balance"])?></p>
-                <p class="text-sm text-gray-500 mt-1">N° <?= htmlspecialchars($account["account_id"])?></p>
-            </div>
-        <?php endforeach?>
+        <?php if (!empty($accounts)): ?>
+            <?php foreach ($accounts as $account): ?>
+                <div class="bg-white p-6 rounded-lg shadow">
+                    <h3 class="text-lg font-semibold text-gray-700 capitalize ">Compte <?= htmlspecialchars($account["account_type"]) ?></h3>
+                    <p class="text-3xl font-bold text-gray-900 mt-2">€<?= htmlspecialchars($account["balance"]) ?></p>
+                    <p class="text-sm text-gray-500 mt-1">N° <?= htmlspecialchars($account["account_id"]) ?></p>
+                </div>
+            <?php endforeach ?>
+        <?php else: ?>
+            <div>No accounts yet</div>
+        <?php endif ?>
     </div>
 
     <!-- Quick Actions -->

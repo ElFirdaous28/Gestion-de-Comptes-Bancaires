@@ -34,9 +34,9 @@ class AuthController extends BaseController
                 $_SESSION['user_loged_in_email'] = $user['email'];
 
                 if ($user && $role == "admin") {
-                    $this->render('admin/dashboard');
+                    header('Location: /admin/dashboard');
                 } else if ($user && $role == "client") {
-                    $this->render('client/dashboard');
+                    header('Location: /client/dashboard');
                 }
             }
         }
