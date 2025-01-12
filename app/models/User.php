@@ -17,7 +17,8 @@ class User extends DataBase
 
             if ($user && password_verify($userData[1], $user["password"])) {
                 return  $user;
-            }
+            } else
+                return false;
         } catch (PDOException $e) {
             echo "Error in login function: " . $e->getMessage();
         }
@@ -60,7 +61,8 @@ class User extends DataBase
         }
     }
 
-    public function deleteUser($user_id){
+    public function deleteUser($user_id)
+    {
         try {
             $deleteUserQuery = $this->conn->prepare("DELETE FROM users WHERE user_id = ?");
             $deleteUserQuery->execute([$user_id]);
@@ -69,31 +71,33 @@ class User extends DataBase
         }
     }
 
-    public function updateUserInformations($fullname, $email, $user_id){
-        try{
+    public function updateUserInformations($fullname, $email, $user_id)
+    {
+        try {
             $updateUserInfoQuery = $this->conn->prepare("UPDATE users SET full_name = ?, email = ? WHERE user_id = ?");
             $updateUserInfoQuery->execute([$fullname, $email, $user_id]);
-        } catch (PDOException $e){
-            error_log("error getting user".$e->getMessage());
+        } catch (PDOException $e) {
+            error_log("error getting user" . $e->getMessage());
         }
     }
 
-    public function getUserById($user_id){
-        try{
+    public function getUserById($user_id)
+    {
+        try {
             $stmt = $this->conn->prepare("SELECT * FROM users WHERE user_id = ?");
             $stmt->execute([$user_id]);
             return $stmt->fetch(PDO::FETCH_ASSOC);
-
-        } catch (PDOException $e){
+        } catch (PDOException $e) {
             echo "Error in get user by id: " . $e->getMessage();
         }
     }
 
-    public function deleteAccountUser($user_id){
-        try{
+    public function deleteAccountUser($user_id)
+    {
+        try {
             $stmt = $this->conn->prepare("DELETE FROM users WHERE user_id = ?");
             $stmt->execute([$user_id]);
-        } catch (PDOException $e){
+        } catch (PDOException $e) {
             echo "Error in delete accout user: " . $e->getMessage();
         }
     }
