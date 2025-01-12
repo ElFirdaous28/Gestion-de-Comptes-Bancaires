@@ -24,7 +24,7 @@
             </div>
         </div>
     </div>
-    <?php unset($_SESSION['transactionError']); // Remove the session variable after showing the message ?>
+    <?php unset($_SESSION['transactionError']);?>
 <?php endif; ?>
 
 <script>
