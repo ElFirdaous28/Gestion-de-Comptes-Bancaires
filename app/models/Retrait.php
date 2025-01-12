@@ -10,9 +10,9 @@ class Retrait extends Transaction{
 
     public function addTransaction($transactionInfo){
         try{
-            $addDepotStatment = $this->conn->prepare("INSERT INTO transactions (account_id,amount,transaction_type)
-                                                      VALUES (?,?,?)");
-            $addDepotStatment->execute([$transactionInfo["account_id"],$transactionInfo["amount"],"retrait"]);
+            $addDepotStatment = $this->conn->prepare("INSERT INTO transactions (account_id,amount,transaction_type,motif)
+                                                      VALUES (?,?,?,?)");
+            $addDepotStatment->execute([$transactionInfo["account_id"],$transactionInfo["amount"],"retrait",$transactionInfo["motif"]]);
         }
         catch(PDOException $e){
             error_log("Error adding a retrait ".$e->getMessage());

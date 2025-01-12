@@ -38,6 +38,16 @@
                         <p class="mt-1 text-sm text-gray-500">Montant minimum : 0.01 €</p>
                     </div>
 
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Motif *</label>
+                        <input
+                        required
+                            name="motif"
+                            type="text"
+                            class="mt-1 block w-full rounded-md border border-gray-300 p-2"
+                            placeholder="Motif du virement" />
+                    </div>
+
 
 
                     <!-- Informations carte (affiché conditionnellement) -->

@@ -87,6 +87,21 @@ class Account extends DataBase
         return $stmt->fetchColumn() > 0;
     }
 
+    // methode to get status
+    public function getStatus($account_id)
+    {
+        try {
+            $getStatusStatement = $this->conn->prepare("SELECT account_status FROM accounts WHERE account_id = ?");
+            $getStatusStatement->execute([$account_id]);
+
+            $status = $getStatusStatement->fetchColumn();;
+            return $status;
+        } catch (PDOException $e) {
+            echo "Error finding user accounts: " . $e->getMessage();
+        }
+    }
+    
+    // methode to get amount 
 
     // methode to get amount
     public function getBalance($account_id)
@@ -130,5 +145,16 @@ class Account extends DataBase
         $newBalance = (float)$oldAmount - (float)$transaction_amount;
 
         $this->updateBalance($account_id, $newBalance);
+    }
+
+    // methode to get account infos
+    public function getAccount($account_id)
+    {
+        $stmt = $this->conn->prepare("SELECT a.*,u.full_name FROM accounts a
+                                      JOIN users u ON a.user_id=u.user_id
+                                      WHERE account_id = ?");
+        $stmt->execute([$account_id]);
+        $account = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $account;
     }
 }

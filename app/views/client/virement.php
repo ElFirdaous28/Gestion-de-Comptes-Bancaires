@@ -1,6 +1,8 @@
 <?php require_once(__DIR__ . '../../partials/clinetTop.php'); ?>
 <?php require_once(__DIR__ . '../../partials/clientSideBar.php'); ?>
 
+<?php require_once('errorPopUp.php'); ?>
+
 <!-- Main Content -->
 <div class="flex-1 p-8">
     <h2 class="text-2xl font-bold text-gray-800">Effectuer un virement</h2>
@@ -22,7 +24,7 @@
                 <select name="beneficiary_account_id" required
                     class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
                     <?php foreach ($beneficiaries as $beneficiary): ?>
-                        <option value="<?= htmlspecialchars($beneficiary["beneficiary_account_id"]) ?>"><?= htmlspecialchars($beneficiary["beneficiary_name"])."-". htmlspecialchars($beneficiary["beneficiary_account_id"]) ?></option>
+                        <option value="<?= htmlspecialchars($beneficiary["beneficiary_account_id"]) ?>"><?= htmlspecialchars($beneficiary["beneficiary_name"]) . "-" . htmlspecialchars($beneficiary["beneficiary_account_id"]) ?></option>
                     <?php endforeach ?>
                 </select>
             </div>
@@ -34,7 +36,7 @@
                         <span class="text-gray-500 sm:text-sm">€</span>
                     </div>
                     <input
-                    name="amount"
+                        name="amount"
                         type="number"
                         min="0.01"
                         step="0.01"
@@ -46,6 +48,8 @@
             <div>
                 <label class="block text-sm font-medium text-gray-700">Motif</label>
                 <input
+                    required
+                    name="motif"
                     type="text"
                     class="mt-1 block w-full rounded-md border border-gray-300 p-2"
                     placeholder="Motif du virement" />

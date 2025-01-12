@@ -58,7 +58,9 @@ Route::post('/client/benificiers/updateBeneficiary', [ClientController::class, '
 Route::post('/client/benificiers/deleteBeneficiary', [ClientController::class, 'deleteBeneficiary']);
 
 Route::get('/client/historique', [ClientController::class, 'historique']);
+Route::get('/client/transactionsList', [ClientController::class, 'transactionsList']);
 Route::get('/client/profil', [ClientController::class, 'profil']);
+Route::get('/client/releveDuCompte/{account_id}', [ClientController::class, 'releveDuCompte']);
 
 Route::post('/client/deleteAccountUser', [ClientController::class, 'deleteAccountUser']);
 
